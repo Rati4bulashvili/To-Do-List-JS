@@ -1,0 +1,211 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font-family: sans-serif;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+  background-color: #f58634;
+  padding: 10px;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.do {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 10px auto;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.do__container {
+  background-color: #00af91;
+  padding: 0px 15px 20px 15px;
+  width: 30%;
+  height: 100%;
+  -webkit-box-shadow: 0px 1px 6px #222;
+          box-shadow: 0px 1px 6px #222;
+}
+
+.do__container__head {
+  color: white;
+  justify-self: center;
+  font-size: 25px;
+  background-color: #007965;
+  margin: 0px -15px 30px -15px;
+  padding: 15px;
+  -webkit-box-shadow: 0px 1px 5px #222;
+          box-shadow: 0px 1px 5px #222;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.do__container__head__header {
+  margin: 1px 0px;
+}
+
+.do__container__head__input {
+  width: 50%;
+  font-size: 20px;
+  border-top: 1px solid #222;
+  border-bottom: 1px solid #222;
+  border-left: 1px solid #222;
+  border-right: 0px;
+  margin-left: auto;
+}
+
+.do__container__head__input:focus {
+  outline: none;
+}
+
+.do__container__head__add {
+  background-color: #f58634;
+  font-size: 20px;
+  border-top: 1px solid #222;
+  border-right: 1px solid #222;
+  border-bottom: 1px solid #222;
+  border-left: 0px;
+}
+
+.do__container__head__add:hover {
+  cursor: pointer;
+}
+
+.do__container__head__add:focus {
+  outline: none;
+}
+
+.do__container__draggable {
+  padding: 10px;
+  border: 1px solid #222;
+  cursor: move;
+  margin: 10px 0px;
+  font-style: 20px;
+  background-color: #ffcc29;
+}
+
+.do__container__draggable__fix {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.do__container__draggable__fix__name {
+  width: 45%;
+  font-size: 18px;
+  outline: none;
+  font-weight: bold;
+}
+
+.do__container__draggable__fix__priority {
+  width: 50px;
+  border-top: 1px solid #222;
+  border-bottom: 1px solid #222;
+  border-left: 1px solid #222;
+  border-right: 0px;
+  margin-left: auto;
+  font-size: 18px;
+}
+
+.do__container__draggable__fix__priority:focus {
+  outline: none;
+}
+
+.do__container__draggable__fix__submit {
+  background-color: #f58634;
+  border-top: 1px solid #222;
+  border-right: 1px solid #222;
+  border-bottom: 1px solid #222;
+  border-left: 0px solid #222;
+  font-size: 18px;
+  outline: none;
+}
+
+.do__container__draggable__fix__submit:hover {
+  cursor: pointer;
+}
+
+.do__container__draggable__fix__extend {
+  margin-left: 10px;
+  width: 31px;
+  height: 31px;
+  border-radius: 50%;
+  background-image: url(./icons/icons8-more-25.png);
+  outline: none;
+}
+
+.do__container__draggable__more {
+  margin-top: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.do__container__draggable__more__header {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.do__container__draggable__more__textarea {
+  resize: none;
+  outline: none;
+}
+
+.do__container__draggable.dragging {
+  opacity: 0.5;
+  -webkit-transform: rotateZ(2deg);
+          transform: rotateZ(2deg);
+}
+/*# sourceMappingURL=sryles.css.map */

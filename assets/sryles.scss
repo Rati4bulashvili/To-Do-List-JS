@@ -1,0 +1,211 @@
+$green1: #00af91;
+$green2: #007965;
+$yellow: #ffcc29;
+$orange: #f58634;
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+    font-family: sans-serif;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+    line-height: 1;
+    background-color: #f58634;
+    padding: 10px;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+// edit specific tasks.
+// Each task should have 3 fields:
+// 1. Name - issue name.
+// 2. Priority - from 1 to 10.
+// 2. Description - issue description.
+// 3. Status - Status can be 'To Do', 'In Progress' or 'Done'.
+// Name, description and priority can be editable. 
+// Tasks list should be sorted according to priority property.
+// Each task can be transmitted from `To do` into `in progress`, from `in progress` to `done` or opposite.
+
+
+.do{
+    display: flex;
+    margin: 10px auto;
+    justify-content: space-around;
+    
+    &__container {
+        background-color: $green1;
+        padding: 0px 15px 20px 15px;
+        width: 30%;
+        height: 100%;
+        box-shadow: 0px 1px 6px #222;
+
+        &__head{
+            color: white;
+            justify-self: center;
+            font-size: 25px;
+            background-color: $green2;
+            margin: 0px -15px 30px -15px;  //რამდენად ლეგალურია ამის გაკეთება? :) (იმისთვის რომ ჰედერს კონტეინერის პადინგი არ შეეხოს)
+            padding: 15px;
+            box-shadow: 0px 1px 5px #222;
+            display: flex;
+            align-items: center;
+
+            &__header{
+                margin: 1px 0px;
+            }
+
+            &__input{
+                width: 50%;
+                font-size: 20px;
+                border-top: 1px solid #222;
+                border-bottom: 1px solid #222;
+                border-left: 1px solid #222;
+                border-right: 0px;
+                margin-left: auto;
+
+                &:focus{
+                    outline: none;
+                }
+            }
+            
+            &__add{
+                background-color: $orange;
+                font-size: 20px;
+                border-top: 1px solid #222;
+                border-right: 1px solid #222;
+                border-bottom: 1px solid #222;
+                border-left: 0px;
+                
+                &:hover{
+                    cursor: pointer;
+                }
+                
+                &:focus{
+                    outline: none;
+                }
+            }
+        }
+        
+        &__draggable {
+            padding: 10px;
+            border: 1px solid #222;
+            cursor: move;
+            margin: 10px 0px;
+            font-style: 20px;
+            background-color: $yellow;
+
+            &__fix{
+                display: flex;
+                align-items: center;
+
+                &__name{
+                    width: 45%;
+                    font-size: 18px;
+                    outline: none;
+                    font-weight: bold;
+                    
+                }
+                
+                &__priority{
+                    width: 50px;
+                    border-top: 1px solid #222;
+                    border-bottom: 1px solid #222;
+                    border-left: 1px solid #222;
+                    border-right: 0px;
+                    margin-left: auto;
+                    font-size: 18px;
+                    
+                    &:focus{
+                        outline: none;
+                    }
+                }
+                
+                &__submit{
+                    background-color: $orange;
+                    border-top: 1px solid #222;
+                    border-right: 1px solid #222;
+                    border-bottom: 1px solid #222;
+                    border-left: 0px solid #222;
+                    font-size: 18px;
+                    outline: none;
+                    
+                    &:hover{
+                        cursor: pointer;
+                    }
+                }
+                
+                &__extend{
+                    margin-left: 10px;
+                    width: 31px;
+                    height: 31px;
+                    border-radius: 50%;
+                    background-image: url(./icons/icons8-more-25.png);
+                    outline: none;
+                }   
+            }
+            
+            &__more{
+                margin-top: 20px;
+                display: flex;
+                flex-direction: column;
+                
+                &__header{
+                    font-size: 18px;
+                    margin-bottom: 10px;
+                }
+                
+                &__textarea{
+                    resize: none;
+                    outline: none;
+                }
+            }
+        }
+        
+        &__draggable.dragging {
+            opacity: 0.5;
+            transform: rotateZ(2deg);
+        }
+    }
+    
+}
+
+
+// .show{
+    //     display: block;
+// }
+  
