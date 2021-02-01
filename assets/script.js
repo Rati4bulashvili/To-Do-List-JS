@@ -232,30 +232,35 @@ function changeDescription(e){
   }
 }
 
-// function del(e){
-//   for (let i = 0; i < todo.length; i++) {
-//     if(todo[i].id == e.target.dataset.id){
-//       todo.splice(i,1);
-//       document.querySelector('.TODO1').innerHTML = '';
-//       document.querySelector('.TODO1').appendChild(todo[i].task);
-//     }   
-//   }
-//   for (let i = 0; i < doing.length; i++) {
-//     if(doing[i].id == e.target.dataset.id){
-//       doing[i].priority = parseInt(e.target.value);
-//     }   
-//   }
-//   for (let i = 0; i < done.length; i++) {
-//     if(done[i].id == e.target.dataset.id){
-//       done[i].priority = parseInt(e.target.value);
-//     }   
-//   }
-// }
+function del(e){
+  for (let i = 0; i < todo.length; i++) {
+    if(todo[i].id == e.target.dataset.id){
+      todo.splice(i,1);
+      document.querySelector('.TODO1').innerHTML = '';
+    }   
+  }
+  for (let i = 0; i < doing.length; i++) {
+    if(doing[i].id == e.target.dataset.id){
+      doing.splice(i,1);
+      document.querySelector('.DOING1').innerHTML = '';
+    }   
+  }
+  for (let i = 0; i < done.length; i++) {
+    if(done[i].id == e.target.dataset.id){
+      done.splice(i,1);
+      document.querySelector('.DONE1').innerHTML = '';
+    }   
+  }
 
-function replace(a, b){
-  let temp = a;
-  a = b;
-  b = temp;
+  for(let i = 0; i < todo.length; i++){
+    document.querySelector('.TODO1').appendChild(todo[i].task);
+  }
+  for(let i = 0; i < doing.length; i++){
+    document.querySelector('.DOING1').appendChild(doing[i].task);
+  }
+  for(let i = 0; i < done.length; i++){
+    document.querySelector('.DONE1').appendChild(done[i].task);
+  }
 }
 
 
