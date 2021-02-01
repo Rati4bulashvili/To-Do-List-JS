@@ -62,17 +62,26 @@ table {
     
     &__container {
         background-color: $green1;
-        padding: 0px 15px 20px 15px;
+        padding: 0px 15px 0px 15px;
         width: 30%;
         height: 100%;
         box-shadow: 0px 1px 6px #222;
+
+        .container1{
+            padding: 10px;
+            color: white;
+            background-color: $green1;
+            margin: 0px -15px 0px -15px;  //რამდენად ლეგალურია ამის გაკეთება? :) (იმისთვის რომ ჰედერს კონტეინერის პადინგი არ შეეხოს)
+            min-height: 30px;
+
+        }
 
         &__head{
             color: white;
             justify-self: center;
             font-size: 25px;
             background-color: $green2;
-            margin: 0px -15px 30px -15px;  //რამდენად ლეგალურია ამის გაკეთება? :) (იმისთვის რომ ჰედერს კონტეინერის პადინგი არ შეეხოს)
+            margin: 0px -15px 0px -15px;  //რამდენად ლეგალურია ამის გაკეთება? :) (იმისთვის რომ ჰედერს კონტეინერის პადინგი არ შეეხოს)
             padding: 15px;
             box-shadow: 0px 1px 5px #222;
             display: flex;

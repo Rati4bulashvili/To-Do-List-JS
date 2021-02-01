@@ -1,7 +1,7 @@
-const containers = document.querySelectorAll('.container')
-const todoContainer = document.querySelector('.do__container--todo')
-const doingContainer= document.querySelector('.do__container--doing')
-const doneContainer = document.querySelector('.do__container--done')
+const containers = document.querySelectorAll('.container1')
+const todoContainer = document.querySelector('.TODO1')
+const doingContainer= document.querySelector('.DOING1')
+const doneContainer = document.querySelector('.DONE1')
 var draggables = document.querySelectorAll('.draggable')
 var todo = [];
 var doing = [];
@@ -31,7 +31,6 @@ function drag(){
           current = 'DONE'
         }
       }  
-      console.log(current)
     })
     
     draggable.addEventListener('dragend', () => {
@@ -50,20 +49,15 @@ function drag(){
         //only moving in arrays
         draggable.addEventListener('dragend', () => {
           todoContainer.ondragend = function(){
-            console.log('dragend')
-            console.log('dragend, and current: ' + current)
-            
             let temp;
             if(current === 'DOING'){
               //fropm doing to todo
               for (let i = 0; i < doing.length; i++) {
-                console.log('doingis forshi shevida')
                 
                 console.log(doing[i].id);
                 console.log(id1);
                 if(doing[i].id == id1){
                   
-                  console.log('bolo if shi shevida');
                   temp = doing.splice(i, 1);
                   temp = temp[0];
                   todo.push(temp);
@@ -86,9 +80,8 @@ function drag(){
             }
             delete temp;
           }
-
+          
           doingContainer.ondragend = function(){
-            console.log('dragend')
             let temp;
             //move to doing
             
@@ -100,6 +93,7 @@ function drag(){
                   temp = todo.splice(i, 1);
                   temp = temp[0];
                   doing.push(temp);
+                  document.querySelector('.DOING1').appendChild(draggable);
                   // localStorage.setItem('doing', JSON.stringify(doing))
                 }                
               } 
@@ -120,7 +114,6 @@ function drag(){
           }
 
           doneContainer.ondragend = function(){
-            console.log('dragend')
             let temp;
             
             if(current === 'TODO'){
@@ -239,25 +232,25 @@ function changeDescription(e){
   }
 }
 
-function del(e){
-  for (let i = 0; i < todo.length; i++) {
-    if(todo[i].id == e.target.dataset.id){
-      todo.splice(i,1);
-      document.querySelector('.TODO').innerHTML = '';
-      document.querySelector('.TODO').appendChild(todo[i].task);
-    }   
-  }
-  for (let i = 0; i < doing.length; i++) {
-    if(doing[i].id == e.target.dataset.id){
-      doing[i].priority = parseInt(e.target.value);
-    }   
-  }
-  for (let i = 0; i < done.length; i++) {
-    if(done[i].id == e.target.dataset.id){
-      done[i].priority = parseInt(e.target.value);
-    }   
-  }
-}
+// function del(e){
+//   for (let i = 0; i < todo.length; i++) {
+//     if(todo[i].id == e.target.dataset.id){
+//       todo.splice(i,1);
+//       document.querySelector('.TODO1').innerHTML = '';
+//       document.querySelector('.TODO1').appendChild(todo[i].task);
+//     }   
+//   }
+//   for (let i = 0; i < doing.length; i++) {
+//     if(doing[i].id == e.target.dataset.id){
+//       doing[i].priority = parseInt(e.target.value);
+//     }   
+//   }
+//   for (let i = 0; i < done.length; i++) {
+//     if(done[i].id == e.target.dataset.id){
+//       done[i].priority = parseInt(e.target.value);
+//     }   
+//   }
+// }
 
 function replace(a, b){
   let temp = a;
@@ -296,7 +289,7 @@ document.querySelector('.do__container__head__add').addEventListener('click', fu
   todo.push({task: newTask, id: id, name: name, priority: priority, description: description});
   
   for(let i = 0; i < todo.length; i++){
-    document.querySelector('.TODO').appendChild(todo[i].task);
+    document.querySelector('.TODO1').appendChild(todo[i].task);
   }
   
   draggables = document.querySelectorAll('.draggable');
@@ -314,42 +307,39 @@ document.querySelector('.do__container__head__add').addEventListener('click', fu
   
 })
 
-// function sort(){
+function sort(){//gadatanili elementi ar isorteba, ecvleba div elementi romelic agar mushaobs
   
-//   const sorted1 = todo.sort((a, b) => {
-//     if(a.priority > b.priority) return 1
-//     if(b.priority > a.priority) return -1
-//   })
-//   const sorted2 = doing.sort((a, b) => {
+  const sorted1 = todo.sort((a, b) => {
+    if(a.priority > b.priority) return -1
+    if(b.priority > a.priority) return 1
+  })
 
-//     console.log('sorting')
-//     if(a.priority > b.priority) return 1
-//     if(b.priority > a.priority) return -1
-//   })
-//   const sorted3 = done.sort((a, b) => {
-//     if(a.priority > b.priority) return 1
-//     if(b.priority > a.priority) return -1
-//   })
+  const sorted2 = doing.sort((a, b) => {
+    if(a.priority > b.priority) return -1
+    if(b.priority > a.priority) return 1
+  })
+  const sorted3 = done.sort((a, b) => {
+    if(a.priority > b.priority) return -1
+    if(b.priority > a.priority) return 1
+  })//doing shi da done shi shemowmeba step by step
+  //nebismieri gadatanis mere agar sortavs
   
-//   console.log(doing)
+  console.log(todo[0].task);
+  document.querySelector('.TODO1').innerHTML = '';
+  // document.querySelector('.DOING1').innerHTML = '';
+  // document.querySelector('.DONE1').innerHTML = '';
   
-//   document.querySelector('.TODO1').innerHTML = '';
-//   console.log(document.querySelector('.DOING1'))
-//   // document.querySelector('.DOING1').innerHTML = '';
-//   document.querySelector('.DONE1').innerHTML = '';
+  for(let i = 0; i < todo.length; i++){
+    document.querySelector('.TODO1').appendChild(todo[i].task);
+  }
+  for(let i = 0; i < doing.length; i++){
+    document.querySelector('.DOING1').appendChild(doing[i].task);
+  }
+  for(let i = 0; i < done.length; i++){
+    document.querySelector('.DONE1').appendChild(done[i].task);
+  }
   
-//   for(let i = 0; i < todo.length; i++){
-//     document.querySelector('.TODO1').appendChild(todo[i].task);
-    
-//   }
-//   for(let i = 0; i < doing.length; i++){
-//     // document.querySelector('.DOING1').appendChild(doing[i].task);
-//   }
-//   for(let i = 0; i < done.length; i++){
-//     document.querySelector('.DONE1').appendChild(done[i].task);
-//   }
-  
-
+}
 
 
 
@@ -438,7 +428,6 @@ document.querySelector('.do__container__head__add').addEventListener('click', fu
   //   }
   // }
 
-// }
 
 
 
