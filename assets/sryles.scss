@@ -51,16 +51,9 @@ table {
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-// edit specific tasks.
 // Each task should have 3 fields:
-// 1. Name - issue name.
 // 2. Priority - from 1 to 10.
-// 2. Description - issue description.
-// 3. Status - Status can be 'To Do', 'In Progress' or 'Done'.
-// Name, description and priority can be editable. 
 // Tasks list should be sorted according to priority property.
-// Each task can be transmitted from `To do` into `in progress`, from `in progress` to `done` or opposite.
-
 
 .do{
     display: flex;
@@ -143,10 +136,7 @@ table {
                 
                 &__priority{
                     width: 50px;
-                    border-top: 1px solid #222;
-                    border-bottom: 1px solid #222;
-                    border-left: 1px solid #222;
-                    border-right: 0px;
+                    border: 1px solid #222;
                     margin-left: auto;
                     font-size: 18px;
                     
@@ -155,27 +145,15 @@ table {
                     }
                 }
                 
-                &__submit{
-                    background-color: $orange;
-                    border-top: 1px solid #222;
-                    border-right: 1px solid #222;
-                    border-bottom: 1px solid #222;
-                    border-left: 0px solid #222;
-                    font-size: 18px;
+                &__extendt{
+                    padding: 0px;
+                    margin-left: 20px;
+                    background-color: transparent;
                     outline: none;
-                    
-                    &:hover{
-                        cursor: pointer;
-                    }
-                }
-                
-                &__extend{
-                    margin-left: 10px;
-                    width: 31px;
-                    height: 31px;
-                    border-radius: 50%;
-                    background-image: url(./icons/icons8-more-25.png);
-                    outline: none;
+                    // width: 31px;
+                    // height: 31px;
+                    // // background-image: url(./icons/delete.png);
+                    // outline: none;
                 }   
             }
             
