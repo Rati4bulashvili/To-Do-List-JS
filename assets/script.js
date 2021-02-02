@@ -176,7 +176,9 @@ function changeName(e){
 
   for (let i = 0; i < todo.length; i++) {
     if(todo[i].id == e.target.dataset.id){
+      localStorage.removeItem('todo');
       todo[i].name = e.target.value;
+      localStorage.setItem(`todo`, JSON.stringify(todo))
     }   
   }
   for (let i = 0; i < doing.length; i++) {
@@ -220,8 +222,11 @@ function changeDescription(e){
 
   for (let i = 0; i < todo.length; i++) {
     if(todo[i].id == e.target.dataset.id){
+      localStorage.removeItem('todo');
       todo[i].description = e.target.value;
       console.log(todo[i].description)
+      localStorage.setItem(`todo`, JSON.stringify(todo))
+
     }   
   }
   for (let i = 0; i < doing.length; i++) {
@@ -336,8 +341,8 @@ function sort(){//gadatanili elementi ar isorteba, ecvleba div elementi romelic 
   //4.1--gamovachino sort is ricxvi inputshi
   //4.2--shecvlili priority shevinaxo loc shi
   //4.3--an tavidan davsorto an ratom ar inaxavs gavarkvio
-  //5.  shevinaxo description changec
-  //6.  shevinaxo name changec
+  //5.--shevinaxo description changec
+  //6.--shevinaxo name changec
 
 
 
@@ -445,6 +450,7 @@ function maxID() {
         n.innerHTML = tasks[i];
         n.querySelector('.name').value = data1[i].name
         n.querySelector('.do__container__draggable__fix__priority').value = data1[i].priority
+        n.querySelector('.do__container__draggable__more__textarea').value = data1[i].description
         
         data1[i].task = n;
         
