@@ -269,12 +269,14 @@ function changeDescription(e){
 // }
 
 function del(e){//refreshis mere ireoda id ebi, magis gamo ar shlida sworad
+                //an imis gamo rom todoTask1 egreve todo[1] shi shemaqvs
 
   for (let i = 0; i < todo.length; i++) {
 
-    console.log(todo[i].id)
-    console.log(e.target.dataset.id)
+    console.log('todo[i].id' + todo[i].id)
+    console.log('e.target.dataset.id ' +e.target.dataset.id)
     if(todo[i].id == e.target.dataset.id){
+      localStorage.removeItem(`todoTask${todo[i].id}`) //ratom -1 jer vera magram mushaobs(memgoni)
       localStorage.removeItem(`todo`, JSON.stringify(todo))
       removed = todo.splice(i,1);
       console.log(removed)
@@ -323,9 +325,8 @@ document.querySelector('.do__container__head__add').addEventListener('click', fu
   name = document.querySelector('.do__container__head__input').value;
   let newTask = document.createElement('div');
   
-  maxID();
   created = true;
-
+  
   newTask.innerHTML = `
   <div class="do__container__draggable draggable" draggable="true" data-id=${id}>
   
@@ -344,6 +345,7 @@ document.querySelector('.do__container__head__add').addEventListener('click', fu
   
   </div>
   `;
+  maxID();
   
   todo.push({task: newTask, id: id, name: name, priority: priority, description: description});
   
@@ -370,10 +372,10 @@ function maxID() {
       }
     }
     id = max + 1;
-    console.log('id: ' + id)
+    // console.log('id: ' + id)
   }
   else if(!data1 || created){
-    console.log('id: ' + id)
+    // console.log('id: ' + id)
   }
   
   
@@ -413,22 +415,23 @@ function maxID() {
     
     if(data1){
       
-      for(let i = 0; i < data1.length; i++){
-        
-        tasks.push(JSON.parse(localStorage.getItem(`todoTask${i}`))) 
+      for(let i = 0; i < data1.length; i++){//data[i].id 
+
+        tasks.push(JSON.parse(localStorage.getItem(`todoTask${data1[i].id}`))) 
         // console.log(JSON.parse(localStorage.getItem(`todoTask${i}`)))
+        console.log(i)
+        console.log(JSON.parse(localStorage.getItem(`todoTask${data1[i].id}`)))//id -1 an +1
         
         let n = document.createElement('div');
         n.innerHTML = tasks[i];
-        
-        n.querySelector('.name').value = data1[i].name
+        // n.querySelector('.name').value = data1[i].name
         
         data1[i].task = n;
         
         todo[i] = data1[i]  
         
         todoContainer.appendChild(todo[i].task)
-        
+
       }
     }
     
@@ -444,6 +447,7 @@ function maxID() {
   //3.  del from storage (delete bug is because of id creating again)
   //3.1.--move max id to LC
   //3.2.--use maxid in creating new  
+  //3.3.--problem with tasks in LC
   //4.  shevinaxo dasortili
   //5.  shevinaxo description
   
