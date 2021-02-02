@@ -195,7 +195,11 @@ function changePriority(e){
   
   for (let i = 0; i < todo.length; i++) {
     if(todo[i].id == e.target.dataset.id){
+      localStorage.removeItem('todo');
       todo[i].priority = parseInt(e.target.value);
+      // localStorage.setItem('todo', todo);
+      localStorage.setItem(`todo`, JSON.stringify(todo))
+
     }   
   }
   for (let i = 0; i < doing.length; i++) {
@@ -231,52 +235,16 @@ function changeDescription(e){
     }   
   }
 }
-// function sort(){//gadatanili elementi ar isorteba, ecvleba div elementi romelic agar mushaobs
-  
-//   const sorted1 = todo.sort((a, b) => {
-//     if(a.priority > b.priority) return -1
-//     if(b.priority > a.priority) return 1
-//   })
-
-//   const sorted2 = doing.sort((a, b) => {
-//     if(a.priority > b.priority) return -1
-//     if(b.priority > a.priority) return 1
-//   })
-//   const sorted3 = done.sort((a, b) => {
-//     if(a.priority > b.priority) return -1
-//     if(b.priority > a.priority) return 1
-//   })//doing shi da done shi shemowmeba step by step
-//   //nebismieri gadatanis mere agar sortavs
-  
-//   console.log(todo[0].task);
-//   document.querySelector('.TODO1').innerHTML = '';
-//   // document.querySelector('.DOING1').innerHTML = '';
-//   // document.querySelector('.DONE1').innerHTML = '';
-  
-//   for(let i = 0; i < todo.length; i++){
-//     document.querySelector('.TODO1').appendChild(todo[i].task);
-//   }
-//   for(let i = 0; i < doing.length; i++){
-//     document.querySelector('.DOING1').appendChild(doing[i].task);
-//   }
-//   for(let i = 0; i < done.length; i++){
-//     document.querySelector('.DONE1').appendChild(done[i].task);
-//   }
-
-//   // localStorage.setItem(`todo`, JSON.stringify(todo))
-
-  
-// }
 
 function del(e){//refreshis mere ireoda id ebi, magis gamo ar shlida sworad
-                //an imis gamo rom todoTask1 egreve todo[1] shi shemaqvs
-
+  //an imis gamo rom todoTask1 egreve todo[1] shi shemaqvs
+  
   for (let i = 0; i < todo.length; i++) {
-
+    
     console.log('todo[i].id' + todo[i].id)
     console.log('e.target.dataset.id ' +e.target.dataset.id)
     if(todo[i].id == e.target.dataset.id){
-      localStorage.removeItem(`todoTask${todo[i].id}`) //ratom -1 jer vera magram mushaobs(memgoni)
+      localStorage.removeItem(`todoTask${todo[i].id}`)
       localStorage.removeItem(`todo`, JSON.stringify(todo))
       removed = todo.splice(i,1);
       console.log(removed)
@@ -284,39 +252,94 @@ function del(e){//refreshis mere ireoda id ebi, magis gamo ar shlida sworad
       localStorage.setItem(`todo`, JSON.stringify(todo))
     }   
   }
-
+  
   // for (let i = 0; i < doing.length; i++) {
-  //   if(doing[i].id == e.target.dataset.id){
+    //   if(doing[i].id == e.target.dataset.id){
   //     doing.splice(i,1);
   //     document.querySelector('.DOING1').innerHTML = '';
   //   }   
   // }
   // for (let i = 0; i < done.length; i++) {
-  //   if(done[i].id == e.target.dataset.id){
-  //     done.splice(i,1);
-  //     document.querySelector('.DONE1').innerHTML = '';
-  //   }   
-  // }
-
-  for(let i = 0; i < todo.length; i++){
-    document.querySelector('.TODO1').appendChild(todo[i].task);
-  }
-  // for(let i = 0; i < doing.length; i++){
-    //   document.querySelector('.DOING1').appendChild(doing[i].task);
-    // }
-    // for(let i = 0; i < done.length; i++){
-      //   document.querySelector('.DONE1').appendChild(done[i].task);
+    //   if(done[i].id == e.target.dataset.id){
+      //     done.splice(i,1);
+      //     document.querySelector('.DONE1').innerHTML = '';
+      //   }   
       // }
       
-}
-
+      for(let i = 0; i < todo.length; i++){
+        document.querySelector('.TODO1').appendChild(todo[i].task);
+      }
+      // for(let i = 0; i < doing.length; i++){
+        //   document.querySelector('.DOING1').appendChild(doing[i].task);
+        // }
+        // for(let i = 0; i < done.length; i++){
+          //   document.querySelector('.DONE1').appendChild(done[i].task);
+          // }
+          
+        }
+        
 
 window.onload = function(){
   created = false;
   getLocalStorage();
 }
 
-let created = false;
+function sort(){//gadatanili elementi ar isorteba, ecvleba div elementi romelic agar mushaobs
+  
+  localStorage.removeItem(`todo`, JSON.stringify(todo))
+  const sorted1 = todo.sort((a, b) => {
+    if(a.priority > b.priority) return -1
+    if(b.priority > a.priority) return 1
+  })
+
+  // const sorted2 = doing.sort((a, b) => {
+  //   if(a.priority > b.priority) return -1
+  //   if(b.priority > a.priority) return 1
+  // })
+  // const sorted3 = done.sort((a, b) => {
+  //   if(a.priority > b.priority) return -1
+  //   if(b.priority > a.priority) return 1
+  // })//doing shi da done shi shemowmeba step by step
+  //nebismieri gadatanis mere agar sortavs
+  
+  // console.log(todo[0].task);
+  document.querySelector('.TODO1').innerHTML = '';
+  // document.querySelector('.DOING1').innerHTML = '';
+  // document.querySelector('.DONE1').innerHTML = '';
+  
+  for(let i = 0; i < todo.length; i++){
+    document.querySelector('.TODO1').appendChild(todo[i].task);
+  }
+  // for(let i = 0; i < doing.length; i++){
+  //   document.querySelector('.DOING1').appendChild(doing[i].task);
+  // }
+  // for(let i = 0; i < done.length; i++){
+    //   document.querySelector('.DONE1').appendChild(done[i].task);
+    // }
+    
+  localStorage.setItem(`todo`, JSON.stringify(todo))
+    
+
+    
+}
+  
+  
+  let created = false;
+  
+  //1.--n shi shevinaxo yvela divi
+  //2.--dataebi gadmovitano da todoshi gadmotanis dros taskis magivrad chavwero n
+  //3.--del from storage (delete bug is because of id creating again)
+  //3.1.--move max id to LC
+  //3.2.--use maxid in creating new  
+  //3.3.--problem with tasks in LC
+  //4.--shevinaxo dasortili
+  //4.1--gamovachino sort is ricxvi inputshi
+  //4.2--shecvlili priority shevinaxo loc shi
+  //4.3--an tavidan davsorto an ratom ar inaxavs gavarkvio
+  //5.  shevinaxo description changec
+  //6.  shevinaxo name changec
+
+
 
 document.querySelector('.do__container__head__add').addEventListener('click', function(){
   
@@ -378,8 +401,6 @@ function maxID() {
     // console.log('id: ' + id)
   }
   
-  
-  
   // if (this.#tasks[0]) {
     //   let Max = Math.max(...this.#tasks.map((task) => task.id));
     
@@ -419,12 +440,11 @@ function maxID() {
 
         tasks.push(JSON.parse(localStorage.getItem(`todoTask${data1[i].id}`))) 
         // console.log(JSON.parse(localStorage.getItem(`todoTask${i}`)))
-        console.log(i)
-        console.log(JSON.parse(localStorage.getItem(`todoTask${data1[i].id}`)))//id -1 an +1
         
         let n = document.createElement('div');
         n.innerHTML = tasks[i];
-        // n.querySelector('.name').value = data1[i].name
+        n.querySelector('.name').value = data1[i].name
+        n.querySelector('.do__container__draggable__fix__priority').value = data1[i].priority
         
         data1[i].task = n;
         
@@ -434,6 +454,8 @@ function maxID() {
 
       }
     }
+
+
     
     // let n = document.createElement('div');
     // n.innerHTML = data;
@@ -442,14 +464,6 @@ function maxID() {
     // todoContainer.appendChild(n);
     
     
-  //1.--n shi shevinaxo yvela divi
-  //2.--dataebi gadmovitano da todoshi gadmotanis dros taskis magivrad chavwero n
-  //3.  del from storage (delete bug is because of id creating again)
-  //3.1.--move max id to LC
-  //3.2.--use maxid in creating new  
-  //3.3.--problem with tasks in LC
-  //4.  shevinaxo dasortili
-  //5.  shevinaxo description
   
   
   // if(data2){
@@ -464,7 +478,7 @@ function maxID() {
         //   let a = localStorage.getItem(`task${i}`); 
         //   console.log(a);
         // }
-      }
+  }
       
   // if(data1){
   //   console.log(data1)  
