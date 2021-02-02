@@ -1,3 +1,196 @@
+let priority = 1;
+let description = '';
+
+let id = 0;
+
+function changeName(e){
+  console.log('changing')
+
+  for (let i = 0; i < todo.length; i++) {
+    if(todo[i].id == e.target.dataset.id){
+      localStorage.removeItem('todo');
+      todo[i].name = e.target.value;
+      localStorage.setItem(`todo`, JSON.stringify(todo))
+    }   
+  }
+  for (let i = 0; i < doing.length; i++) {
+    if(doing[i].id == e.target.dataset.id){
+      localStorage.removeItem('doing');
+      doing[i].name = e.target.value;
+      localStorage.setItem(`doing`, JSON.stringify(doing))
+    }   
+  }
+  for (let i = 0; i < done.length; i++) {
+    if(done[i].id == e.target.dataset.id){
+      localStorage.removeItem('done');
+      done[i].name = e.target.value;
+      localStorage.setItem(`done`, JSON.stringify(done))
+    }   
+  }
+  // for (let i = 0; i < done.length; i++) {
+  //   if(done[i].id == e.target.dataset.id){
+  //     done[i].name = e.target.value;
+  //   }   
+  // }
+}
+
+function changePriority(e){
+  
+  for (let i = 0; i < todo.length; i++) {
+    if(todo[i].id == e.target.dataset.id){
+      localStorage.removeItem('todo');
+      todo[i].priority = parseInt(e.target.value);
+      localStorage.setItem(`todo`, JSON.stringify(todo))
+    }   
+  }
+  for (let i = 0; i < doing.length; i++) {
+    if(doing[i].id == e.target.dataset.id){
+      localStorage.removeItem('doing');
+      doing[i].priority = parseInt(e.target.value);
+      localStorage.setItem(`doing`, JSON.stringify(doing))
+    }   
+  }
+  for (let i = 0; i < done.length; i++) {
+    if(done[i].id == e.target.dataset.id){
+      localStorage.removeItem('done');
+      done[i].priority = parseInt(e.target.value);
+      localStorage.setItem(`done`, JSON.stringify(done))
+    }   
+  }
+
+  // for (let i = 0; i < done.length; i++) {
+  //   if(done[i].id == e.target.dataset.id){
+  //     done[i].priority = parseInt(e.target.value);
+  //   }   
+  // }
+
+  sort();
+}
+
+function changeDescription(e){
+
+  for (let i = 0; i < todo.length; i++) {
+    if(todo[i].id == e.target.dataset.id){
+      localStorage.removeItem('todo');
+      todo[i].description = e.target.value;
+      console.log(todo[i].description)
+      localStorage.setItem(`todo`, JSON.stringify(todo))
+    }   
+  }
+  for (let i = 0; i < doing.length; i++) {
+    if(doing[i].id == e.target.dataset.id){
+      localStorage.removeItem('doing');
+      doing[i].description = e.target.value;
+      console.log(doing[i].description)
+      localStorage.setItem(`doing`, JSON.stringify(doing))
+    }   
+  }
+  for (let i = 0; i < doing.length; i++) {
+    if(doing[i].id == e.target.dataset.id){
+      localStorage.removeItem('doing');
+      doing[i].description = e.target.value;
+      console.log(doing[i].description)
+      localStorage.setItem(`doing`, JSON.stringify(doing))
+    }   
+  }
+
+  // for (let i = 0; i < done.length; i++) {
+  //   if(done[i].id == e.target.dataset.id){
+  //     done[i].description = e.target.value;
+  //   }   
+  // }
+}
+
+function del(e){//refreshis mere ireoda id ebi,
+  //imis gamo ireoda rom todoTask1 egreve todo[1] shi shemqonda
+  
+  for (let i = 0; i < todo.length; i++) {
+
+    if(todo[i].id == e.target.dataset.id){
+      localStorage.removeItem(`todoTask${todo[i].id}`)
+      localStorage.removeItem(`todo`, JSON.stringify(todo))
+      removed = todo.splice(i,1);
+      document.querySelector('.TODO1').innerHTML = '';
+      localStorage.setItem(`todo`, JSON.stringify(todo))
+    }   
+  }
+
+  for (let i = 0; i < doing.length; i++) {
+
+    if(doing[i].id == e.target.dataset.id){
+
+      localStorage.removeItem(`doingTask${doing[i].id}`)
+      localStorage.removeItem(`doing`, JSON.stringify(doing))
+      removed = doing.splice(i,1);
+      document.querySelector('.DOING1').innerHTML = '';
+      localStorage.setItem(`doing`, JSON.stringify(doing))
+    }   
+  }
+
+  for (let i = 0; i < done.length; i++) {
+
+    if(done[i].id == e.target.dataset.id){
+      localStorage.removeItem(`doneTask${done[i].id}`)
+      localStorage.removeItem(`done`, JSON.stringify(done))
+      removed = done.splice(i,1);
+      document.querySelector('.DONE1').innerHTML = '';
+      localStorage.setItem(`done`, JSON.stringify(done))
+    }   
+  }
+  
+  for(let i = 0; i < todo.length; i++){
+    document.querySelector('.TODO1').appendChild(todo[i].task);
+  }
+  for(let i = 0; i < doing.length; i++){
+    document.querySelector('.DOING1').appendChild(doing[i].task);
+  }
+  for(let i = 0; i < done.length; i++){
+    document.querySelector('.DONE1').appendChild(done[i].task);
+  }
+          
+}
+        
+
+window.onload = function(){
+  created = false;
+  getLocalStorage();
+}
+
+function sort(){//gadatanili elementi ar isorteba, ecvleba div elementi romelic agar mushaobs
+  
+  localStorage.removeItem(`todo`, JSON.stringify(todo))
+  const sorted1 = todo.sort((a, b) => {
+    if(a.priority > b.priority) return -1
+    if(b.priority > a.priority) return 1
+  })
+  const sorted2 = doing.sort((a, b) => {
+    if(a.priority > b.priority) return -1
+    if(b.priority > a.priority) return 1
+  })
+  const sorted3 = done.sort((a, b) => {
+    if(a.priority > b.priority) return -1
+    if(b.priority > a.priority) return 1
+  })//doing shi da done shi shemowmeba step by step
+  //nebismieri gadatanis mere agar sortavs
+  
+  // console.log(todo[0].task);
+  document.querySelector('.TODO1').innerHTML = '';
+  document.querySelector('.DOING1').innerHTML = '';
+  document.querySelector('.DONE1').innerHTML = '';
+  
+  for(let i = 0; i < todo.length; i++){
+    document.querySelector('.TODO1').appendChild(todo[i].task);
+  }
+  for(let i = 0; i < doing.length; i++){
+    document.querySelector('.DOING1').appendChild(doing[i].task);
+  }
+  for(let i = 0; i < done.length; i++){
+    document.querySelector('.DONE1').appendChild(done[i].task);
+  }
+    
+  localStorage.setItem(`todo`, JSON.stringify(todo))
+    
+}
 const containers = document.querySelectorAll('.container1')
 const todoContainer = document.querySelector('.TODO1')
 const doingContainer= document.querySelector('.DOING1')
@@ -6,6 +199,20 @@ var draggables = document.querySelectorAll('.draggable')
 var todo = [];
 var doing = [];
 var done = [];
+//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////SWORIA MAGLA////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
 
 function drag(){
 
@@ -39,14 +246,15 @@ function drag(){
     
     //////////////////////////////////////////////////////////////  
     containers.forEach(container => {
+
       
       container.addEventListener('dragover', e => {
 
-        e.preventDefault()  //changing prevent cursor 
+        e.preventDefault() 
         const draggable = document.querySelector('.dragging')
         container.appendChild(draggable);
         
-        //only moving in arrays
+        //only moving in arrays and LC
         draggable.addEventListener('dragend', () => {
           todoContainer.ondragend = function(){
             let temp;
@@ -59,9 +267,10 @@ function drag(){
                 if(doing[i].id == id1){
                   
                   temp = doing.splice(i, 1);
+                  localStorage.removeItem('doing')
                   temp = temp[0];
                   todo.push(temp);
-                  // localStorage.setItem('doing', JSON.stringify(todo))
+                  localStorage.setItem('doing', JSON.stringify(todo))
                 }                
               } 
             }
@@ -71,84 +280,200 @@ function drag(){
               for (let i = 0; i < done.length; i++) {
                 
                 if(done[i].id == id1){
+                  localStorage.removeItem('doing')
                   temp = done.splice(i, 1);
                   temp = temp[0];
                   todo.push(temp);
-                  // localStorage.setItem('doing', JSON.stringify(todo))
-                }                
-              } 
-            }
-            delete temp;
-          }
-          
-          doingContainer.ondragend = function(){
-            let temp;
-            //move to doing
-            
-            if(current === 'TODO'){
-              //from todo to doing
-              for (let i = 0; i < todo.length; i++) {
-                
-                if(todo[i].id == id1){
-                  temp = todo.splice(i, 1);
-                  temp = temp[0];
-                  doing.push(temp);
-                  document.querySelector('.DOING1').appendChild(draggable);
-                  // localStorage.setItem('doing', JSON.stringify(doing))
-                }                
-              } 
-            }
-            else if(current === 'DONE'){
-              //from DONE to doing
-              
-              for (let i = 0; i < done.length; i++) {
-                if(done[i].id == id1){
-                  temp = done.splice(i, 1);
-                  temp = temp[0];
-                  doing.push(temp);
-                  // localStorage.setItem('doing', JSON.stringify(doing))
+                  localStorage.setItem('doing', JSON.stringify(todo))
                 }                
               } 
             }
             delete temp;
           }
 
-          doneContainer.ondragend = function(){
+
+
+
+
+
+          
+          doingContainer.ondragend = function(){
             let temp;
+            //move to doing
+
+            //////////////////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////////////////
             
+            //from todo to doing
+            //doing[i]s mivanicho todos[i] value (mere todo[i] wavshalo)
+              //doingTask-s mivanicho todoTask is value (mere todo wavshalo)
+
+            //ar sheiqmna doingTask, ar waishala todotask
+            //tavidan xom ar shevqmna chemit LC shi gadaweris magivrad
+
             if(current === 'TODO'){
-              //from todo to done
-              
-              //check in which element is id1
+
+              let id2, temp2;
               for (let i = 0; i < todo.length; i++) {
-                
-                if(todo[i].id == id1){
+                id2 = todo[i].id;
+                temp2 = localStorage.getItem(`todoTask${id2}`); //LC s gareshe?
+                //id2 shevinaxo tavidanve+
+                if(id2 == id1){
+
+                  //temp2 is magivrad jergavutolo mere wavshalo
+
+                  localStorage.removeItem('todo')
+                  localStorage.removeItem('doing')
+
                   temp = todo.splice(i, 1);
                   temp = temp[0];
-                  done.push(temp);
-                  // localStorage.setItem('doing', JSON.stringify(done))
+                  doing.push(temp);
+                  localStorage.setItem('todo', JSON.stringify(todo))
+                  localStorage.setItem('doing', JSON.stringify(doing))
+                  
+                  
+                  console.log(temp2)
+                  localStorage.setItem(`doingTask${id2}`, temp2)
+                  localStorage.removeItem(`todoTask${id2}`)
+                  // document.querySelector('.DOING1').appendChild(draggable);   es chirdeba?
                 }                
               } 
             }
             
-            else if(current === 'DOING'){
+            //////////////////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////////////////
+            
+            
+            if(current === 'DONE'){
+
+              //from done to doing
+              //todoebi unda gadavaketo done ebad
+
+              let id2, temp2;
+              for (let i = 0; i < done.length; i++) {
+                id2 = done[i].id;
+                temp2 = localStorage.getItem(`doneTask${id2}`); //LC s gareshe?
+                //id2 shevinaxo tavidanve+
+                if(id2 == id1){
+
+                  localStorage.removeItem('done')
+                  localStorage.removeItem('doing')
+
+                  temp = done.splice(i, 1);
+                  temp = temp[0];
+                  doing.push(temp);
+                  localStorage.setItem('done', JSON.stringify(done))
+                  localStorage.setItem('doing', JSON.stringify(doing))
+                  
+                  console.log(temp2)
+                  localStorage.setItem(`doingTask${id2}`, temp2)
+                  localStorage.removeItem(`doneTask${id2}`)
+                }                
+              } 
+            }
+            
+            // else if(current === 'DONE'){
+            //   //from DONE to doing
+              
+            //   for (let i = 0; i < done.length; i++) {
+            //     if(done[i].id == id1){
+            //       localStorage.removeItem('doing')
+            //       temp = done.splice(i, 1);
+            //       temp = temp[0];
+            //       doing.push(temp);
+            //       localStorage.setItem('doing', JSON.stringify(doing))
+            //     }                
+            //   } 
+            // }
+            delete temp;
+          }
+
+
+
+
+
+
+
+
+
+
+
+
+
+          doneContainer.ondragend = function(){
+            let temp;
+
+            if(current === 'DOING'){
+
               //from doing to done
+              //todoebi unda gadavaketo done ebad
+
+              let id2, temp2;
               for (let i = 0; i < doing.length; i++) {
-                if(doing[i].id == id1){
+                id2 = doing[i].id;
+                temp2 = localStorage.getItem(`doingTask${id2}`); //LC s gareshe?
+                //id2 shevinaxo tavidanve+
+                if(id2 == id1){
+
+                  localStorage.removeItem('doing')
+                  localStorage.removeItem('done')
+
                   temp = doing.splice(i, 1);
                   temp = temp[0];
                   done.push(temp);
-                  // localStorage.setItem('doing', JSON.stringify(done))
-                }   
-              }
+                  localStorage.setItem('doing', JSON.stringify(doing))
+                  localStorage.setItem('done', JSON.stringify(done))
+                  
+                  localStorage.setItem(`doneTask${id2}`, temp2)
+                  localStorage.removeItem(`doingTask${id2}`)
+                }                
+              } 
             }
+            if(current === 'TODO'){
+
+              //from todo to done
+              //doingebi unda gadavaketo todo ebad
+
+              let id2, temp2;
+              for (let i = 0; i < todo.length; i++) {
+                id2 = todo[i].id;
+                temp2 = localStorage.getItem(`todoTask${id2}`); //LC s gareshe?
+                //id2 shevinaxo tavidanve+
+                if(id2 == id1){
+
+                  localStorage.removeItem('todo')
+                  localStorage.removeItem('done')
+
+                  temp = todo.splice(i, 1);
+                  temp = temp[0];
+                  done.push(temp);
+                  localStorage.setItem('todo', JSON.stringify(todo))
+                  localStorage.setItem('done', JSON.stringify(done))
+                  
+                  localStorage.setItem(`doneTask${id2}`, temp2)
+                  localStorage.removeItem(`todoTask${id2}`)
+                }                
+              } 
+            }
+            
+            // else if(current === 'DOING'){
+            //   //from doing to done
+            //   for (let i = 0; i < doing.length; i++) {
+            //     if(doing[i].id == id1){
+            //       localStorage.removeItem('doing')
+            //       temp = doing.splice(i, 1);
+            //       temp = temp[0];
+            //       done.push(temp);
+            //       localStorage.setItem('doing', JSON.stringify(done))
+            //     }   
+            //   }
+            // }
             delete temp;
           }
         })
       })
     })
   })
-  
   // for (let i = 0; i < todo.length; i++) {
   //   console.log('todo: ' + i)
   //   console.log(todo[i])
@@ -166,186 +491,36 @@ function drag(){
   _setLocalStorage();
 }//drag()
 
-let priority = 1;
-let description = '';
-
-let id = 0;
-
-function changeName(e){
-  console.log('changing')
-
-  for (let i = 0; i < todo.length; i++) {
-    if(todo[i].id == e.target.dataset.id){
-      localStorage.removeItem('todo');
-      todo[i].name = e.target.value;
-      localStorage.setItem(`todo`, JSON.stringify(todo))
-    }   
-  }
-  for (let i = 0; i < doing.length; i++) {
-    if(doing[i].id == e.target.dataset.id){
-      doing[i].name = e.target.value;
-    }   
-  }
-  for (let i = 0; i < done.length; i++) {
-    if(done[i].id == e.target.dataset.id){
-      done[i].name = e.target.value;
-    }   
-  }
-}
-
-function changePriority(e){
-  
-  for (let i = 0; i < todo.length; i++) {
-    if(todo[i].id == e.target.dataset.id){
-      localStorage.removeItem('todo');
-      todo[i].priority = parseInt(e.target.value);
-      // localStorage.setItem('todo', todo);
-      localStorage.setItem(`todo`, JSON.stringify(todo))
-
-    }   
-  }
-  for (let i = 0; i < doing.length; i++) {
-    if(doing[i].id == e.target.dataset.id){
-      doing[i].priority = parseInt(e.target.value);
-    }   
-  }
-  for (let i = 0; i < done.length; i++) {
-    if(done[i].id == e.target.dataset.id){
-      done[i].priority = parseInt(e.target.value);
-    }   
-  }
-
-  sort();
-}
-
-function changeDescription(e){
-
-  for (let i = 0; i < todo.length; i++) {
-    if(todo[i].id == e.target.dataset.id){
-      localStorage.removeItem('todo');
-      todo[i].description = e.target.value;
-      console.log(todo[i].description)
-      localStorage.setItem(`todo`, JSON.stringify(todo))
-
-    }   
-  }
-  for (let i = 0; i < doing.length; i++) {
-    if(doing[i].id == e.target.dataset.id){
-      doing[i].description = e.target.value;
-    }   
-  }
-  for (let i = 0; i < done.length; i++) {
-    if(done[i].id == e.target.dataset.id){
-      done[i].description = e.target.value;
-    }   
-  }
-}
-
-function del(e){//refreshis mere ireoda id ebi, magis gamo ar shlida sworad
-  //an imis gamo rom todoTask1 egreve todo[1] shi shemaqvs
-  
-  for (let i = 0; i < todo.length; i++) {
-    
-    console.log('todo[i].id' + todo[i].id)
-    console.log('e.target.dataset.id ' +e.target.dataset.id)
-    if(todo[i].id == e.target.dataset.id){
-      localStorage.removeItem(`todoTask${todo[i].id}`)
-      localStorage.removeItem(`todo`, JSON.stringify(todo))
-      removed = todo.splice(i,1);
-      console.log(removed)
-      document.querySelector('.TODO1').innerHTML = '';
-      localStorage.setItem(`todo`, JSON.stringify(todo))
-    }   
-  }
-  
-  // for (let i = 0; i < doing.length; i++) {
-    //   if(doing[i].id == e.target.dataset.id){
-  //     doing.splice(i,1);
-  //     document.querySelector('.DOING1').innerHTML = '';
-  //   }   
-  // }
-  // for (let i = 0; i < done.length; i++) {
-    //   if(done[i].id == e.target.dataset.id){
-      //     done.splice(i,1);
-      //     document.querySelector('.DONE1').innerHTML = '';
-      //   }   
-      // }
-      
-      for(let i = 0; i < todo.length; i++){
-        document.querySelector('.TODO1').appendChild(todo[i].task);
-      }
-      // for(let i = 0; i < doing.length; i++){
-        //   document.querySelector('.DOING1').appendChild(doing[i].task);
-        // }
-        // for(let i = 0; i < done.length; i++){
-          //   document.querySelector('.DONE1').appendChild(done[i].task);
-          // }
-          
-        }
-        
-
-window.onload = function(){
-  created = false;
-  getLocalStorage();
-}
-
-function sort(){//gadatanili elementi ar isorteba, ecvleba div elementi romelic agar mushaobs
-  
-  localStorage.removeItem(`todo`, JSON.stringify(todo))
-  const sorted1 = todo.sort((a, b) => {
-    if(a.priority > b.priority) return -1
-    if(b.priority > a.priority) return 1
-  })
-
-  // const sorted2 = doing.sort((a, b) => {
-  //   if(a.priority > b.priority) return -1
-  //   if(b.priority > a.priority) return 1
-  // })
-  // const sorted3 = done.sort((a, b) => {
-  //   if(a.priority > b.priority) return -1
-  //   if(b.priority > a.priority) return 1
-  // })//doing shi da done shi shemowmeba step by step
-  //nebismieri gadatanis mere agar sortavs
-  
-  // console.log(todo[0].task);
-  document.querySelector('.TODO1').innerHTML = '';
-  // document.querySelector('.DOING1').innerHTML = '';
-  // document.querySelector('.DONE1').innerHTML = '';
-  
-  for(let i = 0; i < todo.length; i++){
-    document.querySelector('.TODO1').appendChild(todo[i].task);
-  }
-  // for(let i = 0; i < doing.length; i++){
-  //   document.querySelector('.DOING1').appendChild(doing[i].task);
-  // }
-  // for(let i = 0; i < done.length; i++){
-    //   document.querySelector('.DONE1').appendChild(done[i].task);
-    // }
-    
-  localStorage.setItem(`todo`, JSON.stringify(todo))
-    
-
-    
-}
-  
   
   let created = false;
   
-  //1.--n shi shevinaxo yvela divi
-  //2.--dataebi gadmovitano da todoshi gadmotanis dros taskis magivrad chavwero n
-  //3.--del from storage (delete bug is because of id creating again)
-  //3.1.--move max id to LC
-  //3.2.--use maxid in creating new  
-  //3.3.--problem with tasks in LC
-  //4.--shevinaxo dasortili
-  //4.1--gamovachino sort is ricxvi inputshi
-  //4.2--shecvlili priority shevinaxo loc shi
-  //4.3--an tavidan davsorto an ratom ar inaxavs gavarkvio
-  //5.--shevinaxo description changec
-  //6.--shevinaxo name changec
+  //1.++n shi shevinaxo yvela divi
+  //2.++dataebi gadmovitano da todoshi gadmotanis dros taskis magivrad chavwero n
+  //3.++del from storage (delete bug is because of id creating again)
+  //3.1.+move max id to LC
+  //3.2.+use maxid in creating new  
+  //3.3.+problem with tasks1 in LC
+  //4.++shevinaxo dasortili
+  //4.1++gamovachino sort is ricxvi inputshi
+  //4.2++shecvlili priority shevinaxo loc shi
+  //4.3++an tavidan davsorto an ratom ar inaxavs gavarkvio
+  //5.++shevinaxo description changec
+  //6.++shevinaxo name changec
 
+  ///////////new chapter unlocked: THE LAST BUG////////////////////
 
-
+  //1. shevamowmo ra ar mushaobs STEP BY STEP
+////1.1 -D&D ar mushaobs sanam axal damatebul elements ar davaD&Deb ;) (snooze)
+  //2.++ganvakomentaro yvelaferi ertad zemodan qvemot   
+  //2.2++rac mushaobda imis shemowmeba -> mushaobs
+  //3.  gavarkvio ratom ar mushaobs D&D da gamovasworo
+  //3.1++doing shi aris elementebi da LC shic midis magram ar ibechdeba
+  //3.2++todo dan doingshi gadatanili todo dan ar ishleba
+  //3.4++todo dan doingze gavakete
+  //3.5  danarchenebzec gadavitano
+  //3.6  BUG: roca arsebobs mag: doing0 da iqmneba todo0 urevs(id funqciis shecdomaa)
+  
+  
 document.querySelector('.do__container__head__add').addEventListener('click', function(){
   
   let name;
@@ -384,82 +559,175 @@ document.querySelector('.do__container__head__add').addEventListener('click', fu
   id++;
   draggables = document.querySelectorAll('.draggable');
   drag();
-})
+})///////////////////////////////////////////////////////////end of main
 
-
-function maxID() {
-  
-  //unda avigo max id value LC dan yvela elementshi shesvlit
-  if(data1 && !created){
-    let max = 0;
-    
-    for(let i = 0; i < data1.length; i++){
-      
-      if(data1[i].id > max){
-        max = data1[i].id;
-      }
-    }
-    id = max + 1;
-    // console.log('id: ' + id)
-  }
-  else if(!data1 || created){
-    // console.log('id: ' + id)
-  }
-  
-  // if (this.#tasks[0]) {
-    //   let Max = Math.max(...this.#tasks.map((task) => task.id));
-    
-    //   this.#taskID = Max + 1;
-    //   console.log(this.#taskID, Max);
-    // }
-  }
-  
-  
   function _setLocalStorage(){
     localStorage.setItem(`LCid`, JSON.stringify(id)) 
     
     for (let i = 0; i < todo.length; i++) {
-      
       localStorage.setItem(`todoTask${i}`, JSON.stringify(todo[i].task.innerHTML)) 
-      // console.log(todo)
+    }
+    for (let i = 0; i < doing.length; i++) {
+      localStorage.setItem(`doingTask${i}`, JSON.stringify(doing[i].task.innerHTML)) 
+    }
+    for (let i = 0; i < done.length; i++) {
+      localStorage.setItem(`doneTask${i}`, JSON.stringify(done[i].task.innerHTML)) 
     }
     
     localStorage.setItem(`todo`, JSON.stringify(todo))
-    // localStorage.setItem('doing', JSON.stringify(doing))
-    // localStorage.setItem('done', JSON.stringify(done))
+    localStorage.setItem('doing', JSON.stringify(doing))
+    localStorage.setItem('done', JSON.stringify(done))
   }
   
   let data1, data2, data3;
-  let tasks = [];
-  
+  let tasks1 = [];
+  let tasks2 = [];
+  let tasks3 = [];
+
+
   function getLocalStorage(){
     
     // console.log(id);
     // id = JSON.parse(localStorage.getItem('LCid'))
     
     data1 = JSON.parse(localStorage.getItem('todo'));
+    data2 = JSON.parse(localStorage.getItem('doing'));
+    data3 = JSON.parse(localStorage.getItem('done'));
     
     if(data1){
-      
       for(let i = 0; i < data1.length; i++){//data[i].id 
 
-        tasks.push(JSON.parse(localStorage.getItem(`todoTask${data1[i].id}`))) 
+        tasks1.push(JSON.parse(localStorage.getItem(`todoTask${data1[i].id}`))) 
         // console.log(JSON.parse(localStorage.getItem(`todoTask${i}`)))
         
         let n = document.createElement('div');
-        n.innerHTML = tasks[i];
+        n.innerHTML = tasks1[i];
         n.querySelector('.name').value = data1[i].name
         n.querySelector('.do__container__draggable__fix__priority').value = data1[i].priority
         n.querySelector('.do__container__draggable__more__textarea').value = data1[i].description
         
         data1[i].task = n;
         
-        todo[i] = data1[i]  
+        todo[i] = data1[i];
         
-        todoContainer.appendChild(todo[i].task)
+        todoContainer.appendChild(todo[i].task);
 
       }
     }
+    if(data2){
+      for(let i = 0; i < data2.length; i++){//data[i].id 
+
+        a = localStorage.getItem(`doingTask${data2[i].id}`);
+        // console.log(a);
+        tasks2.push(JSON.parse(localStorage.getItem(`doingTask${data2[i].id}`))); 
+        localStorage.getItem(`doingTask${i}`)//data2[i].id xom ara {i} s magivrad
+
+        console.log(JSON.parse(localStorage.getItem(`doingTask${data2[i].id}`)))//data2[i].id xom ara {i} s magivrad
+        
+        let n = document.createElement('div');
+        n.innerHTML = tasks2[i];
+
+        if(n.querySelector('.name')){
+
+          n.querySelector('.name').value = data2[i].name
+          n.querySelector('.do__container__draggable__fix__priority').value = data2[i].priority
+          n.querySelector('.do__container__draggable__more__textarea').value = data2[i].description
+        }
+          
+        data2[i].task = n;
+        doing[i] = data2[i]  
+        
+        doingContainer.appendChild(doing[i].task)
+
+      }
+    }
+    if(data3){
+      for(let i = 0; i < data3.length; i++){//data[i].id 
+
+        tasks3.push(JSON.parse(localStorage.getItem(`doneTask${data3[i].id}`))) 
+        JSON.parse(localStorage.getItem(`doneTask${i}`))
+        console.log(JSON.parse(localStorage.getItem(`doingTask${data3[i].id}`)))//data2[i].id xom ara {i} s magivrad
+
+        let n = document.createElement('div');
+        n.innerHTML = tasks3[i];
+
+        if(n.querySelector('.name')){
+          n.querySelector('.name').value = data3[i].name
+          n.querySelector('.do__container__draggable__fix__priority').value = data3[i].priority
+          n.querySelector('.do__container__draggable__more__textarea').value = data3[i].description
+        }
+        
+        data3[i].task = n;
+        
+        done[i] = data3[i]  
+        
+        doneContainer.appendChild(done[i].task)
+        
+      }
+    }
+  }
+    
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////IDaris DABLA/////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+
+
+  function maxID() {
+  
+    //unda avigo max id value LC dan yvela elementshi shesvlit
+    if(data1 && !created){
+      let max = 0;
+      
+      for(let i = 0; i < data1.length; i++){
+        
+        if(data1[i].id > max){
+          max = data1[i].id;
+        }
+      }
+      id = max + 1;
+    }
+    else if(!data1 || created){
+      // console.log('id: ' + id)
+    }
+  
+  
+    if(data2 && !created){
+      let max = 0;
+      
+      for(let i = 0; i < data2.length; i++){
+        
+        if(data2[i].id > max){
+          max = data2[i].id;
+        }
+      }
+      id = max + 1;
+    }
+    else if(!data2 || created){
+      // console.log('id: ' + id)
+    }
+  
+    if(data3 && !created){
+      let max = 0;
+      
+      for(let i = 0; i < data3.length; i++){
+        
+        if(data3[i].id > max){
+          max = data3[i].id;
+        }
+      }
+      id = max + 1;
+    }
+    else if(!data3 || created){
+      // console.log('id: ' + id)
+    }
+    
+  }
+
+
+
+
 
 
     
@@ -484,7 +752,6 @@ function maxID() {
         //   let a = localStorage.getItem(`task${i}`); 
         //   console.log(a);
         // }
-  }
       
   // if(data1){
   //   console.log(data1)  
