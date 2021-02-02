@@ -149,21 +149,21 @@ function drag(){
     })
   })
   
-  for (let i = 0; i < todo.length; i++) {
-    console.log('todo: ' + i)
-    console.log(todo[i])
-  }
-  for (let i = 0; i < doing.length; i++) {
-    console.log('doing: ' + i)
-    console.log(doing[i])
-  }
-  for (let i = 0; i < done.length; i++) {
-    console.log('done: ' + i)
-    console.log(done[i])
-  }
+  // for (let i = 0; i < todo.length; i++) {
+  //   console.log('todo: ' + i)
+  //   console.log(todo[i])
+  // }
+  // for (let i = 0; i < doing.length; i++) {
+  //   console.log('doing: ' + i)
+  //   console.log(doing[i])
+  // }
+  // for (let i = 0; i < done.length; i++) {
+  //   console.log('done: ' + i)
+  //   console.log(done[i])
+  // }
 
   // console.log(todo);
-  // _setLocalStorage();
+  _setLocalStorage();
 }//drag()
 
 let priority = 1;
@@ -231,12 +231,53 @@ function changeDescription(e){
     }   
   }
 }
+// function sort(){//gadatanili elementi ar isorteba, ecvleba div elementi romelic agar mushaobs
+  
+//   const sorted1 = todo.sort((a, b) => {
+//     if(a.priority > b.priority) return -1
+//     if(b.priority > a.priority) return 1
+//   })
+
+//   const sorted2 = doing.sort((a, b) => {
+//     if(a.priority > b.priority) return -1
+//     if(b.priority > a.priority) return 1
+//   })
+//   const sorted3 = done.sort((a, b) => {
+//     if(a.priority > b.priority) return -1
+//     if(b.priority > a.priority) return 1
+//   })//doing shi da done shi shemowmeba step by step
+//   //nebismieri gadatanis mere agar sortavs
+  
+//   console.log(todo[0].task);
+//   document.querySelector('.TODO1').innerHTML = '';
+//   // document.querySelector('.DOING1').innerHTML = '';
+//   // document.querySelector('.DONE1').innerHTML = '';
+  
+//   for(let i = 0; i < todo.length; i++){
+//     document.querySelector('.TODO1').appendChild(todo[i].task);
+//   }
+//   for(let i = 0; i < doing.length; i++){
+//     document.querySelector('.DOING1').appendChild(doing[i].task);
+//   }
+//   for(let i = 0; i < done.length; i++){
+//     document.querySelector('.DONE1').appendChild(done[i].task);
+//   }
+
+//   // localStorage.setItem(`todo`, JSON.stringify(todo))
+
+  
+// }
 
 function del(e){
+
+  
   for (let i = 0; i < todo.length; i++) {
     if(todo[i].id == e.target.dataset.id){
+      localStorage.removeItem(`todo`, JSON.stringify(todo))
       todo.splice(i,1);
       document.querySelector('.TODO1').innerHTML = '';
+      localStorage.setItem(`todo`, JSON.stringify(todo))
+
     }   
   }
   for (let i = 0; i < doing.length; i++) {
@@ -261,13 +302,15 @@ function del(e){
   for(let i = 0; i < done.length; i++){
     document.querySelector('.DONE1').appendChild(done[i].task);
   }
+
+
+
 }
 
 
 document.querySelector('.do__container__head__add').addEventListener('click', function(){
   
-  let name;///cant move out
-  // class="do__container__draggable__fix__extend extend"
+  let name;
   
   name = document.querySelector('.do__container__head__input').value;
   let newTask = document.createElement('div');
@@ -299,103 +342,106 @@ document.querySelector('.do__container__head__add').addEventListener('click', fu
   
   draggables = document.querySelectorAll('.draggable');
   drag();
-  
-  // console.log(todo);
-  
-  // console.log(doing.length);
-  
-  // console.log(todo[i]);
-  // console.log(done[i]);
-  // console.log('done: ' + done);
-  
   id++;
-  
 })
 
-function sort(){//gadatanili elementi ar isorteba, ecvleba div elementi romelic agar mushaobs
-  
-  const sorted1 = todo.sort((a, b) => {
-    if(a.priority > b.priority) return -1
-    if(b.priority > a.priority) return 1
-  })
+function _setLocalStorage(){
 
-  const sorted2 = doing.sort((a, b) => {
-    if(a.priority > b.priority) return -1
-    if(b.priority > a.priority) return 1
-  })
-  const sorted3 = done.sort((a, b) => {
-    if(a.priority > b.priority) return -1
-    if(b.priority > a.priority) return 1
-  })//doing shi da done shi shemowmeba step by step
-  //nebismieri gadatanis mere agar sortavs
-  
-  console.log(todo[0].task);
-  document.querySelector('.TODO1').innerHTML = '';
-  // document.querySelector('.DOING1').innerHTML = '';
-  // document.querySelector('.DONE1').innerHTML = '';
-  
-  for(let i = 0; i < todo.length; i++){
-    document.querySelector('.TODO1').appendChild(todo[i].task);
+  for (let i = 0; i < todo.length; i++) {
+    
+    localStorage.setItem(`todoTask${i}`, JSON.stringify(todo[i].task.innerHTML)) 
+    console.log(todo)
   }
-  for(let i = 0; i < doing.length; i++){
-    document.querySelector('.DOING1').appendChild(doing[i].task);
-  }
-  for(let i = 0; i < done.length; i++){
-    document.querySelector('.DONE1').appendChild(done[i].task);
-  }
-  
+
+  localStorage.setItem(`todo`, JSON.stringify(todo))
+  // localStorage.setItem('doing', JSON.stringify(doing))
+  // localStorage.setItem('done', JSON.stringify(done))
 }
 
-
-
-
-  // function _setLocalStorage(){
-
-//   for (let i = 0; i < todo.length; i++) {
-    
-//     localStorage.setItem(`task${i}`, JSON.stringify(todo[i].task)) 
-//     console.log(todo[i].task)
-//     console.log(todo)
-//   }
-
-//   console.log(todo);
-//   localStorage.setItem(`todo`, JSON.stringify(todo))
-//   localStorage.setItem('done', JSON.stringify(done))
-// }
-// let data1, data2, data3;
-// function getLocalStorage(){
-//   data1 = JSON.parse(localStorage.getItem('todo'));
-//   data2 = JSON.parse(localStorage.getItem('doing'));
-//   data3 = JSON.parse(localStorage.getItem('done'));
-
-//   for (let i = 0; i < 3; i++) {
-    
-//     let a = localStorage.getItem(`task${i}`); 
-//     console.log(a[]);
-//   }
-// }
-
-// window.onload = function(){
+let data1, data2, data3;
+let tasks = [];
+function getLocalStorage(){
   
-//   getLocalStorage()
-// }
-//   console.log(data1)  
-//   for (let i = 0; i < data1.length; i++) {
-//     todo.push(data1[i]);
-//   }
-//   console.log(todo);
+  data1 = JSON.parse(localStorage.getItem('todo'));
+  
+  if(data1){
 
-//   for(let i = 0; i < todo.length; i++){
-//     // document.querySelector('.TODO').appendChild(todo[i].task);
-//   }
+    for(let i = 0; i < data1.length; i++){
+    
+      tasks.push(JSON.parse(localStorage.getItem(`todoTask${i}`))) 
+      // console.log(JSON.parse(localStorage.getItem(`todoTask${i}`)))
 
-//   console.log(todo)
+      let n = document.createElement('div');
+      n.innerHTML = tasks[i];
+      
+      data1[i].task = n;
+      // console.log(data1)
+      
+      todo[i] = data1[i]  
+      console.log(data1[i].task)
+      
+      todoContainer.appendChild(todo[i].task)
+    
+    }
+  }
+
+
+  // let n = document.createElement('div');
+  // n.innerHTML = data;
+  // console.log(data)
+  // // todo[0].task = data;
+  // todoContainer.appendChild(n);
+
+
+  //1.--n shi shevinaxo yvela divi
+  //2.--dataebi gadmovitano da todoshi gadmotanis dros taskis magivrad chavwero n
+  //3.  shevinaxo dasortili
+  //4.  shevinaxo description
+  //5.  del from storage
+
+
+  // if(data2){
+  //   data2 = JSON.parse(localStorage.getItem('doing'));
+  // }
+  // if(data3){
+  //   data3 = JSON.parse(localStorage.getItem('done'));
+  // }
+
+  // for (let i = 0; i < 3; i++) {
+    
+  //   let a = localStorage.getItem(`task${i}`); 
+  //   console.log(a);
+  // }
+}
+
+window.onload = function(){
+  
+  getLocalStorage()
+
+
+
+
+
+}
+  // if(data1){
+  //   console.log(data1)  
+  //   for (let i = 0; i < data1.length; i++) {
+  //     todo.push(data1[i]);
+  //   }
+  // }
+  // console.log(todo);
+
+  // for(let i = 0; i < todo.length; i++){
+  //   // document.querySelector('.TODO').appendChild(todo[i].task);
+  // }
+
+  // console.log(todo)
 
 
 
   // for (let i = 0; i < todo.length; i++) {
     
-    //   if(todo[i] !== undefined && todo[i+1] !== undefined){
+  //     if(todo[i] !== undefined && todo[i+1] !== undefined){
 
   //     if (todo[i].priority < todo[i+1].priority) {
   //       // return -1;
