@@ -1,13 +1,6 @@
 let priority = 1;
 let description = '';
 
-//id refreshis dros ikargeba amis gamo
-//zogjer (memgoni refreshis mere) doingTask1 xdeba '/n /n'
-//shevamowmo yvela setitem('doingtask') 
-//////add idzaxebs drags da magis gamo sheidzleba ragacashi shedis sadac ar minda rom shediodes^
-//////am dros doing kargadaa da shemidzlia iqidan amovigo doingTask ebi
-
-
 if(JSON.parse(localStorage.getItem('LCid')) === null){
   let id = 0;
   localStorage.setItem('LCid', id);
@@ -111,96 +104,11 @@ function changeDescription(e){
   // }
 }
 
-function del(e){//refreshis mere ireoda id ebi,
-  //imis gamo ireoda rom todoTask1 egreve todo[1] shi shemqonda
-  
-  for (let i = 0; i < todo.length; i++) {
-
-    if(todo[i].id == e.target.dataset.id){
-      localStorage.removeItem(`todoTask${todo[i].id}`)
-      localStorage.removeItem(`todo`, JSON.stringify(todo))
-      removed = todo.splice(i,1);
-      document.querySelector('.TODO1').innerHTML = '';
-      localStorage.setItem(`todo`, JSON.stringify(todo))
-    }   
-  }
-
-  for (let i = 0; i < doing.length; i++) {
-
-    if(doing[i].id == e.target.dataset.id){
-
-      localStorage.removeItem(`doingTask${doing[i].id}`)
-      localStorage.removeItem(`doing`, JSON.stringify(doing))
-      removed = doing.splice(i,1);
-      document.querySelector('.DOING1').innerHTML = '';
-      localStorage.setItem(`doing`, JSON.stringify(doing))
-    }   
-  }
-
-  for (let i = 0; i < done.length; i++) {
-
-    if(done[i].id == e.target.dataset.id){
-      localStorage.removeItem(`doneTask${done[i].id}`)
-      localStorage.removeItem(`done`, JSON.stringify(done))
-      removed = done.splice(i,1);
-      document.querySelector('.DONE1').innerHTML = '';
-      localStorage.setItem(`done`, JSON.stringify(done))
-    }   
-  }
-  
-  for(let i = 0; i < todo.length; i++){
-    document.querySelector('.TODO1').appendChild(todo[i].task);
-  }
-  for(let i = 0; i < doing.length; i++){
-    document.querySelector('.DOING1').appendChild(doing[i].task);
-  }
-  for(let i = 0; i < done.length; i++){
-    document.querySelector('.DONE1').appendChild(done[i].task);
-  }
-          
-}
-        
-
 window.onload = function(){
   created = false;
   getLocalStorage();
 }
 
-function sort(){//gadatanili elementi ar isorteba, ecvleba div elementi romelic agar mushaobs
-  
-  localStorage.removeItem(`todo`, JSON.stringify(todo))
-  const sorted1 = todo.sort((a, b) => {
-    if(a.priority > b.priority) return -1
-    if(b.priority > a.priority) return 1
-  })
-  const sorted2 = doing.sort((a, b) => {
-    if(a.priority > b.priority) return -1
-    if(b.priority > a.priority) return 1
-  })
-  const sorted3 = done.sort((a, b) => {
-    if(a.priority > b.priority) return -1
-    if(b.priority > a.priority) return 1
-  })//doing shi da done shi shemowmeba step by step
-  //nebismieri gadatanis mere agar sortavs
-  
-  // console.log(todo[0].task);
-  document.querySelector('.TODO1').innerHTML = '';
-  document.querySelector('.DOING1').innerHTML = '';
-  document.querySelector('.DONE1').innerHTML = '';
-  
-  for(let i = 0; i < todo.length; i++){
-    document.querySelector('.TODO1').appendChild(todo[i].task);
-  }
-  for(let i = 0; i < doing.length; i++){
-    document.querySelector('.DOING1').appendChild(doing[i].task);
-  }
-  for(let i = 0; i < done.length; i++){
-    document.querySelector('.DONE1').appendChild(done[i].task);
-  }
-    
-  localStorage.setItem(`todo`, JSON.stringify(todo))
-    
-}
 const containers = document.querySelectorAll('.container1')
 const todoContainer = document.querySelector('.TODO1')
 const doingContainer= document.querySelector('.DOING1')
@@ -209,18 +117,6 @@ var draggables = document.querySelectorAll('.draggable')
 var todo = [];
 var doing = [];
 var done = [];
-//////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////SWORIA MAGLA////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
 
 
 
@@ -268,15 +164,6 @@ function drag(){
         //only moving in arrays and LC
         draggable.addEventListener('dragend', () => {
 
-          
-          
-          
-          
-          
-          
-          
-          
-          
           let temp;
           todoContainer.ondragend = function(){
 
@@ -345,20 +232,6 @@ function drag(){
               delete temp;
             }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             if(current === 'DOING'){
               //fropm doing to todo
               for (let i = 0; i < doing.length; i++) {
@@ -392,12 +265,6 @@ function drag(){
             delete temp;
           }
 
-
-
-
-
-
-          
           doingContainer.ondragend = function(){
             let temp;
             //move to doing
@@ -487,18 +354,6 @@ function drag(){
             // }
             delete temp;
           }
-
-
-
-
-
-
-
-
-
-
-
-
 
           doneContainer.ondragend = function(){
             let temp;
@@ -591,6 +446,107 @@ function drag(){
   _setLocalStorage();
 }//drag()
 
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////SWORIA MAGLA////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+
+function del(e){//mushaoooooobss
+  
+  for (let i = 0; i < todo.length; i++) {
+
+    if(todo[i].id == e.target.dataset.id){
+      localStorage.removeItem(`todoTask${todo[i].id}`)
+      localStorage.removeItem(`todo`, JSON.stringify(todo))
+      removed = todo.splice(i,1);
+      document.querySelector('.TODO1').innerHTML = '';
+      localStorage.setItem(`todo`, JSON.stringify(todo))
+    }   
+  }
+
+  for (let i = 0; i < doing.length; i++) {
+
+    if(doing[i].id == e.target.dataset.id){
+
+      localStorage.removeItem(`doingTask${doing[i].id}`)
+      localStorage.removeItem(`doing`, JSON.stringify(doing))
+      removed = doing.splice(i,1);
+      document.querySelector('.DOING1').innerHTML = '';
+      localStorage.setItem(`doing`, JSON.stringify(doing))
+    }   
+  }
+
+  for (let i = 0; i < done.length; i++) {
+
+    if(done[i].id == e.target.dataset.id){
+      localStorage.removeItem(`doneTask${done[i].id}`)
+      localStorage.removeItem(`done`, JSON.stringify(done))
+      removed = done.splice(i,1);
+      document.querySelector('.DONE1').innerHTML = '';
+      localStorage.setItem(`done`, JSON.stringify(done))
+    }   
+  }
+  
+  for(let i = 0; i < todo.length; i++){
+    document.querySelector('.TODO1').appendChild(todo[i].task);
+  }
+  for(let i = 0; i < doing.length; i++){
+    document.querySelector('.DOING1').appendChild(doing[i].task);
+  }
+  for(let i = 0; i < done.length; i++){
+    document.querySelector('.DONE1').appendChild(done[i].task);
+  }
+          
+}
+
+
+
+function sort(){//doingshi da done shi isorteba magram qreba da refreshis mere yvelaferi mushaobs
+  
+  localStorage.removeItem(`todo`, JSON.stringify(todo))
+  const sorted1 = todo.sort((a, b) => {
+    if(a.priority > b.priority) return -1
+    if(b.priority > a.priority) return 1
+  })
+  const sorted2 = doing.sort((a, b) => {
+    if(a.priority > b.priority) return -1
+    if(b.priority > a.priority) return 1
+  })
+  const sorted3 = done.sort((a, b) => {
+    if(a.priority > b.priority) return -1
+    if(b.priority > a.priority) return 1
+  })
+  
+  document.querySelector('.TODO1').innerHTML = '';
+  document.querySelector('.DOING1').innerHTML = '';
+  document.querySelector('.DONE1').innerHTML = '';
+
+  for(let i = 0; i < todo.length; i++){
+    document.querySelector('.TODO1').appendChild(todo[i].task);
+  }
+  for(let i = 0; i < doing.length; i++){
+    document.querySelector('.DOING1').appendChild(doing[i].task);
+  }
+  for(let i = 0; i < done.length; i++){
+    document.querySelector('.DONE1').appendChild(done[i].task);
+  }
+    
+  localStorage.setItem(`todo`, JSON.stringify(todo))
+  localStorage.setItem(`done`, JSON.stringify(done))
+  localStorage.setItem(`doing`, JSON.stringify(doing))
+    
+}
+
+
+
+
+
+
   
   let created = false;
   
@@ -620,13 +576,11 @@ function drag(){
   //3.5.1  ragac momentshi LCdan gaqra todo, doing, done 
   //3.6++BUG: roca arsebobs mag: doing0 da iqmneba todo0 urevs(id funqciis shecdomaa)
   //3.7  mteli funqcionali shevamowmo 
-
-
+  //3.7  sorts aqvs bug
 
 
   
   ////1.1 -D&D ar mushaobs sanam axal damatebul elements ar davaD&Deb ;) (snooze)
-  //dabla if(data2,3) shi wavshale LC.getitemebi memgoni arafers shveboda
   
 document.querySelector('.do__container__head__add').addEventListener('click', function(){
   
@@ -666,7 +620,7 @@ document.querySelector('.do__container__head__add').addEventListener('click', fu
   id++;
   draggables = document.querySelectorAll('.draggable');
   drag();
-})///////////////////////////////////////////////////////////end of main
+})///////////////////////////////////////////////////////////add()
 
   function _setLocalStorage(){
     localStorage.setItem(`LCid`, JSON.stringify(id)) 
