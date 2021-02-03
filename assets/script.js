@@ -1,7 +1,17 @@
 let priority = 1;
 let description = '';
 
-let id = 0;
+//id refreshis dros ikargeba amis gamo
+//zogjer (memgoni refreshis mere) doingTask1 xdeba '/n /n'
+//shevamowmo yvela setitem('doingtask') 
+//////add idzaxebs drags da magis gamo sheidzleba ragacashi shedis sadac ar minda rom shediodes^
+//////am dros doing kargadaa da shemidzlia iqidan amovigo doingTask ebi
+
+
+if(JSON.parse(localStorage.getItem('LCid')) === null){
+  let id = 0;
+  localStorage.setItem('LCid', id);
+}
 
 function changeName(e){
   console.log('changing')
@@ -239,6 +249,7 @@ function drag(){
         }
       }  
     })
+
     
     draggable.addEventListener('dragend', () => {
       draggable.classList.remove('dragging')
@@ -246,18 +257,108 @@ function drag(){
     
     //////////////////////////////////////////////////////////////  
     containers.forEach(container => {
-
+      
       
       container.addEventListener('dragover', e => {
-
+        
         e.preventDefault() 
         const draggable = document.querySelector('.dragging')
         container.appendChild(draggable);
         
         //only moving in arrays and LC
         draggable.addEventListener('dragend', () => {
+
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          let temp;
           todoContainer.ondragend = function(){
-            let temp;
+
+            if(current === 'DONE'){
+
+              //done dan todo shi
+              //todo shevcvalo done ad
+              //doing shevcvalo todo d
+
+              let id2, temp2;
+              for (let i = 0; i < done.length; i++) {
+                id2 = done[i].id;
+                temp2 = localStorage.getItem(`doneTask${id2}`); //LC s gareshe?
+                //id2 shevinaxo tavidanve+
+                if(id2 == id1){
+
+                  //temp2 is magivrad jergavutolo mere wavshalo
+
+                  localStorage.removeItem('done')
+                  localStorage.removeItem('todo')
+
+                  temp = done.splice(i, 1);
+                  temp = temp[0];
+                  todo.push(temp);
+                  localStorage.setItem('done', JSON.stringify(done))
+                  localStorage.setItem('todo', JSON.stringify(todo))
+
+                  console.log(temp2)
+                  localStorage.setItem(`todoTask${id2}`, temp2) //
+                  localStorage.removeItem(`doneTask${id2}`)
+                  // document.querySelector('.TODO1').appendChild(draggable);   es chirdeba? rogorc chans ara
+                }                
+              } 
+            }
+
+            //else sxvaganac maklia
+            else if(current === 'DOING'){
+
+              //doing dan todo shi
+              //done shevcvalo doing ad
+
+              let id2, temp2;
+              for (let i = 0; i < doing.length; i++) {
+                id2 = doing[i].id;
+                temp2 = localStorage.getItem(`doingTask${id2}`); //LC s gareshe?
+                //id2 shevinaxo tavidanve+
+                if(id2 == id1){
+
+                  //temp2 is magivrad jergavutolo mere wavshalo
+
+                  localStorage.removeItem('doing')
+                  localStorage.removeItem('todo')
+
+                  temp = doing.splice(i, 1);
+                  temp = temp[0];
+                  todo.push(temp);
+                  localStorage.setItem('doing', JSON.stringify(doing))
+                  localStorage.setItem('todo', JSON.stringify(todo))
+                  
+                  console.log(temp2)
+                  localStorage.setItem(`todoTask${id2}`, temp2) //
+                  localStorage.removeItem(`doingTask${id2}`)
+                  // document.querySelector('.TODO1').appendChild(draggable);   es chirdeba? rogorc chans ara
+                }                
+              } 
+              delete temp;
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             if(current === 'DOING'){
               //fropm doing to todo
               for (let i = 0; i < doing.length; i++) {
@@ -330,10 +431,9 @@ function drag(){
                   doing.push(temp);
                   localStorage.setItem('todo', JSON.stringify(todo))
                   localStorage.setItem('doing', JSON.stringify(doing))
-                  
-                  
+
                   console.log(temp2)
-                  localStorage.setItem(`doingTask${id2}`, temp2)
+                  localStorage.setItem(`doingTask${id2}`, temp2) //
                   localStorage.removeItem(`todoTask${id2}`)
                   // document.querySelector('.DOING1').appendChild(draggable);   es chirdeba?
                 }                
@@ -510,16 +610,23 @@ function drag(){
   ///////////new chapter unlocked: THE LAST BUG////////////////////
 
   //1. shevamowmo ra ar mushaobs STEP BY STEP
-////1.1 -D&D ar mushaobs sanam axal damatebul elements ar davaD&Deb ;) (snooze)
   //2.++ganvakomentaro yvelaferi ertad zemodan qvemot   
   //2.2++rac mushaobda imis shemowmeba -> mushaobs
   //3.  gavarkvio ratom ar mushaobs D&D da gamovasworo
   //3.1++doing shi aris elementebi da LC shic midis magram ar ibechdeba
   //3.2++todo dan doingshi gadatanili todo dan ar ishleba
   //3.4++todo dan doingze gavakete
-  //3.5  danarchenebzec gadavitano
-  //3.6  BUG: roca arsebobs mag: doing0 da iqmneba todo0 urevs(id funqciis shecdomaa)
+  //3.5++danarchenebzec gadavitano  TEST COMPLETED
+  //3.5.1  ragac momentshi LCdan gaqra todo, doing, done 
+  //3.6++BUG: roca arsebobs mag: doing0 da iqmneba todo0 urevs(id funqciis shecdomaa)
+  //3.7  mteli funqcionali shevamowmo 
+
+
+
+
   
+  ////1.1 -D&D ar mushaobs sanam axal damatebul elements ar davaD&Deb ;) (snooze)
+  //dabla if(data2,3) shi wavshale LC.getitemebi memgoni arafers shveboda
   
 document.querySelector('.do__container__head__add').addEventListener('click', function(){
   
@@ -565,14 +672,17 @@ document.querySelector('.do__container__head__add').addEventListener('click', fu
     localStorage.setItem(`LCid`, JSON.stringify(id)) 
     
     for (let i = 0; i < todo.length; i++) {
-      localStorage.setItem(`todoTask${i}`, JSON.stringify(todo[i].task.innerHTML)) 
+      localStorage.setItem(`todoTask${todo[i].id}`, JSON.stringify(todo[i].task.innerHTML)) 
     }
-    for (let i = 0; i < doing.length; i++) {
-      localStorage.setItem(`doingTask${i}`, JSON.stringify(doing[i].task.innerHTML)) 
-    }
-    for (let i = 0; i < done.length; i++) {
-      localStorage.setItem(`doneTask${i}`, JSON.stringify(done[i].task.innerHTML)) 
-    }
+    // for (let i = 0; i < doing.length; i++) {
+    //   localStorage.setItem(`doingTask${doing[i].id}`, JSON.stringify(doing[i].task.innerHTML)) 
+    // //add is mere aq shemodis zedmetad  
+    // //es ori for zedmeti iyo
+    // }
+
+    // for (let i = 0; i < done.length; i++) {
+    //   localStorage.setItem(`doneTask${done[i].id}`, JSON.stringify(done[i].task.innerHTML)) 
+    // }
     
     localStorage.setItem(`todo`, JSON.stringify(todo))
     localStorage.setItem('doing', JSON.stringify(doing))
@@ -593,6 +703,8 @@ document.querySelector('.do__container__head__add').addEventListener('click', fu
     data1 = JSON.parse(localStorage.getItem('todo'));
     data2 = JSON.parse(localStorage.getItem('doing'));
     data3 = JSON.parse(localStorage.getItem('done'));
+
+    id = JSON.parse(localStorage.getItem('LCid'))
     
     if(data1){
       for(let i = 0; i < data1.length; i++){//data[i].id 
@@ -620,9 +732,9 @@ document.querySelector('.do__container__head__add').addEventListener('click', fu
         a = localStorage.getItem(`doingTask${data2[i].id}`);
         // console.log(a);
         tasks2.push(JSON.parse(localStorage.getItem(`doingTask${data2[i].id}`))); 
-        localStorage.getItem(`doingTask${i}`)//data2[i].id xom ara {i} s magivrad
+        // localStorage.getItem(`doingTask${i}`)//data2[i].id xom ara {i} s magivrad
 
-        console.log(JSON.parse(localStorage.getItem(`doingTask${data2[i].id}`)))//data2[i].id xom ara {i} s magivrad
+        // JSON.parse(localStorage.getItem(`doingTask${data2[i].id}`))//data2[i].id xom ara {i} s magivrad
         
         let n = document.createElement('div');
         n.innerHTML = tasks2[i];
@@ -645,8 +757,8 @@ document.querySelector('.do__container__head__add').addEventListener('click', fu
       for(let i = 0; i < data3.length; i++){//data[i].id 
 
         tasks3.push(JSON.parse(localStorage.getItem(`doneTask${data3[i].id}`))) 
-        JSON.parse(localStorage.getItem(`doneTask${i}`))
-        console.log(JSON.parse(localStorage.getItem(`doingTask${data3[i].id}`)))//data2[i].id xom ara {i} s magivrad
+        // JSON.parse(localStorage.getItem(`doneTask${i}`))   eseni arafers shveboda xo?
+        // console.log(JSON.parse(localStorage.getItem(`doingTask${data3[i].id}`)))//data2[i].id xom ara {i} s magivrad
 
         let n = document.createElement('div');
         n.innerHTML = tasks3[i];
@@ -666,10 +778,13 @@ document.querySelector('.do__container__head__add').addEventListener('click', fu
       }
     }
   }
-    
+
+
+  //refreshis mere LCid modis 0 an ar modis saertod
+
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////IDaris DABLA/////////////////////////////////////////////
+////////////////////////////////SWORIA DABLA/////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 
