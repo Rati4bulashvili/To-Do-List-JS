@@ -7,7 +7,6 @@ if(JSON.parse(localStorage.getItem('LCid')) === null){
 }
 
 function changeName(e){
-  console.log('changing')
 
   for (let i = 0; i < todo.length; i++) {
     if(todo[i].id == e.target.dataset.id){
@@ -76,7 +75,6 @@ function changeDescription(e){
     if(todo[i].id == e.target.dataset.id){
       localStorage.removeItem('todo');
       todo[i].description = e.target.value;
-      console.log(todo[i].description)
       localStorage.setItem(`todo`, JSON.stringify(todo))
     }   
   }
@@ -84,7 +82,6 @@ function changeDescription(e){
     if(doing[i].id == e.target.dataset.id){
       localStorage.removeItem('doing');
       doing[i].description = e.target.value;
-      console.log(doing[i].description)
       localStorage.setItem(`doing`, JSON.stringify(doing))
     }   
   }
@@ -92,11 +89,10 @@ function changeDescription(e){
     if(doing[i].id == e.target.dataset.id){
       localStorage.removeItem('doing');
       doing[i].description = e.target.value;
-      console.log(doing[i].description)
       localStorage.setItem(`doing`, JSON.stringify(doing))
     }   
   }
-
+  
   // for (let i = 0; i < done.length; i++) {
   //   if(done[i].id == e.target.dataset.id){
   //     done[i].description = e.target.value;
@@ -107,6 +103,8 @@ function changeDescription(e){
 window.onload = function(){
   created = false;
   getLocalStorage();
+  // add();
+  drag();
 }
 
 const containers = document.querySelectorAll('.container1')
@@ -120,18 +118,29 @@ var done = [];
 
 
 
-function drag(){
+//add sanam ar moxdeba drag s ar shveba
+////lc dan gadmovitano rasac mtxovs
 
+
+
+// id = JSON.parse(localStorage.getItem('LCid'))//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// add();
+
+function drag(){
+  console.log('shevida')
   let current, over;
   let id1;
+  draggables = document.querySelectorAll('.draggable');
+
   draggables.forEach(draggable => {
+  
     
+    console.log('drag')
     draggable.addEventListener('dragstart', e => {
-      
       draggable.classList.add('dragging')
       
       if(e.target.closest('.do__container__draggable')){
-
+        
         id1 = e.target.closest('.do__container__draggable').dataset.id;
 
         if(e.target.closest('.do__container__draggable').closest('.container').classList.contains('TODO')){
@@ -153,8 +162,6 @@ function drag(){
     
     //////////////////////////////////////////////////////////////  
     containers.forEach(container => {
-      
-      
       container.addEventListener('dragover', e => {
         
         e.preventDefault() 
@@ -191,7 +198,6 @@ function drag(){
                   localStorage.setItem('done', JSON.stringify(done))
                   localStorage.setItem('todo', JSON.stringify(todo))
 
-                  console.log(temp2)
                   localStorage.setItem(`todoTask${id2}`, temp2) //
                   localStorage.removeItem(`doneTask${id2}`)
                   // document.querySelector('.TODO1').appendChild(draggable);   es chirdeba? rogorc chans ara
@@ -223,7 +229,6 @@ function drag(){
                   localStorage.setItem('doing', JSON.stringify(doing))
                   localStorage.setItem('todo', JSON.stringify(todo))
                   
-                  console.log(temp2)
                   localStorage.setItem(`todoTask${id2}`, temp2) //
                   localStorage.removeItem(`doingTask${id2}`)
                   // document.querySelector('.TODO1').appendChild(draggable);   es chirdeba? rogorc chans ara
@@ -232,53 +237,42 @@ function drag(){
               delete temp;
             }
 
-            if(current === 'DOING'){
-              //fropm doing to todo
-              for (let i = 0; i < doing.length; i++) {
+            // if(current === 'DOING'){
+            //   //fropm doing to todo
+            //   for (let i = 0; i < doing.length; i++) {
                 
-                console.log(doing[i].id);
-                console.log(id1);
-                if(doing[i].id == id1){
+            //     if(doing[i].id == id1){
                   
-                  temp = doing.splice(i, 1);
-                  localStorage.removeItem('doing')
-                  temp = temp[0];
-                  todo.push(temp);
-                  localStorage.setItem('doing', JSON.stringify(todo))
-                }                
-              } 
-            }
-            else if(current === 'DONE'){
-              //from done to todo
+            //       temp = doing.splice(i, 1);
+            //       localStorage.removeItem('doing')
+            //       temp = temp[0];
+            //       todo.push(temp);
+            //       localStorage.setItem('doing', JSON.stringify(todo))
+            //     }                
+            //   } 
+            // }
+            // else if(current === 'DONE'){
+            //   //from done to todo
               
-              for (let i = 0; i < done.length; i++) {
+            //   for (let i = 0; i < done.length; i++) {
                 
-                if(done[i].id == id1){
-                  localStorage.removeItem('doing')
-                  temp = done.splice(i, 1);
-                  temp = temp[0];
-                  todo.push(temp);
-                  localStorage.setItem('doing', JSON.stringify(todo))
-                }                
-              } 
-            }
-            delete temp;
+            //     if(done[i].id == id1){
+            //       localStorage.removeItem('doing')
+            //       temp = done.splice(i, 1);
+            //       temp = temp[0];
+            //       todo.push(temp);
+            //       localStorage.setItem('doing', JSON.stringify(todo))
+            //     }                
+            //   } 
+            // }
           }
 
           doingContainer.ondragend = function(){
             let temp;
             //move to doing
-
             //////////////////////////////////////////////////////////////////////
             //////////////////////////////////////////////////////////////////////
             
-            //from todo to doing
-            //doing[i]s mivanicho todos[i] value (mere todo[i] wavshalo)
-              //doingTask-s mivanicho todoTask is value (mere todo wavshalo)
-
-            //ar sheiqmna doingTask, ar waishala todotask
-            //tavidan xom ar shevqmna chemit LC shi gadaweris magivrad
-
             if(current === 'TODO'){
 
               let id2, temp2;
@@ -287,8 +281,6 @@ function drag(){
                 temp2 = localStorage.getItem(`todoTask${id2}`); //LC s gareshe?
                 //id2 shevinaxo tavidanve+
                 if(id2 == id1){
-
-                  //temp2 is magivrad jergavutolo mere wavshalo
 
                   localStorage.removeItem('todo')
                   localStorage.removeItem('doing')
@@ -299,10 +291,14 @@ function drag(){
                   localStorage.setItem('todo', JSON.stringify(todo))
                   localStorage.setItem('doing', JSON.stringify(doing))
 
-                  console.log(temp2)
                   localStorage.setItem(`doingTask${id2}`, temp2) //
                   localStorage.removeItem(`todoTask${id2}`)
                   // document.querySelector('.DOING1').appendChild(draggable);   es chirdeba?
+
+                  
+                  console.log(todo);
+                  console.log(doing);
+
                 }                
               } 
             }
@@ -319,8 +315,7 @@ function drag(){
               let id2, temp2;
               for (let i = 0; i < done.length; i++) {
                 id2 = done[i].id;
-                temp2 = localStorage.getItem(`doneTask${id2}`); //LC s gareshe?
-                //id2 shevinaxo tavidanve+
+                temp2 = localStorage.getItem(`doneTask${id2}`); 
                 if(id2 == id1){
 
                   localStorage.removeItem('done')
@@ -332,7 +327,6 @@ function drag(){
                   localStorage.setItem('done', JSON.stringify(done))
                   localStorage.setItem('doing', JSON.stringify(doing))
                   
-                  console.log(temp2)
                   localStorage.setItem(`doingTask${id2}`, temp2)
                   localStorage.removeItem(`doneTask${id2}`)
                 }                
@@ -464,7 +458,7 @@ function del(e){//mushaoooooobss
       localStorage.removeItem(`todoTask${todo[i].id}`)
       localStorage.removeItem(`todo`, JSON.stringify(todo))
       removed = todo.splice(i,1);
-      document.querySelector('.TODO1').innerHTML = '';
+      todoContainer.innerHTML = '';
       localStorage.setItem(`todo`, JSON.stringify(todo))
     }   
   }
@@ -476,7 +470,7 @@ function del(e){//mushaoooooobss
       localStorage.removeItem(`doingTask${doing[i].id}`)
       localStorage.removeItem(`doing`, JSON.stringify(doing))
       removed = doing.splice(i,1);
-      document.querySelector('.DOING1').innerHTML = '';
+      doingContainer.innerHTML = '';
       localStorage.setItem(`doing`, JSON.stringify(doing))
     }   
   }
@@ -487,19 +481,19 @@ function del(e){//mushaoooooobss
       localStorage.removeItem(`doneTask${done[i].id}`)
       localStorage.removeItem(`done`, JSON.stringify(done))
       removed = done.splice(i,1);
-      document.querySelector('.DONE1').innerHTML = '';
+      doneContainer.innerHTML = '';
       localStorage.setItem(`done`, JSON.stringify(done))
     }   
   }
   
   for(let i = 0; i < todo.length; i++){
-    document.querySelector('.TODO1').appendChild(todo[i].task);
+    todoContainer.appendChild(todo[i].task);
   }
   for(let i = 0; i < doing.length; i++){
-    document.querySelector('.DOING1').appendChild(doing[i].task);
+    doingContainer.appendChild(doing[i].task);
   }
   for(let i = 0; i < done.length; i++){
-    document.querySelector('.DONE1').appendChild(done[i].task);
+    doneContainer.appendChild(done[i].task);
   }
           
 }
@@ -509,31 +503,38 @@ function del(e){//mushaoooooobss
 function sort(){//doingshi da done shi isorteba magram qreba da refreshis mere yvelaferi mushaobs
   
   localStorage.removeItem(`todo`, JSON.stringify(todo))
-  const sorted1 = todo.sort((a, b) => {
+  todo.sort((a, b) => {
     if(a.priority > b.priority) return -1
     if(b.priority > a.priority) return 1
   })
-  const sorted2 = doing.sort((a, b) => {
+  doing.sort((a, b) => {
     if(a.priority > b.priority) return -1
     if(b.priority > a.priority) return 1
   })
-  const sorted3 = done.sort((a, b) => {
+  done.sort((a, b) => {
     if(a.priority > b.priority) return -1
     if(b.priority > a.priority) return 1
   })
   
-  document.querySelector('.TODO1').innerHTML = '';
-  document.querySelector('.DOING1').innerHTML = '';
-  document.querySelector('.DONE1').innerHTML = '';
+  todoContainer.innerHTML = '';
+  doingContainer.innerHTML = '';
+  doneContainer.innerHTML = '';
 
   for(let i = 0; i < todo.length; i++){
-    document.querySelector('.TODO1').appendChild(todo[i].task);
+    todoContainer.appendChild(todo[i].task);
   }
-  for(let i = 0; i < doing.length; i++){
-    document.querySelector('.DOING1').appendChild(doing[i].task);
+  console.log(todo)
+  console.log(doing)
+  console.log(done)
+
+  for(let i = 0; i <= doing.length-1; i++){
+    
+
+    console.log(doing[i].task)
+    doingContainer.appendChild(doing[i].task);
   }
   for(let i = 0; i < done.length; i++){
-    document.querySelector('.DONE1').appendChild(done[i].task);
+    doneContainer.appendChild(done[i].task);
   }
     
   localStorage.setItem(`todo`, JSON.stringify(todo))
@@ -575,15 +576,15 @@ function sort(){//doingshi da done shi isorteba magram qreba da refreshis mere y
   //3.5++danarchenebzec gadavitano  TEST COMPLETED
   //3.5.1  ragac momentshi LCdan gaqra todo, doing, done 
   //3.6++BUG: roca arsebobs mag: doing0 da iqmneba todo0 urevs(id funqciis shecdomaa)
-  //3.7  mteli funqcionali shevamowmo 
+  //3.7++mteli funqcionali shevamowmo 
   //3.7  sorts aqvs bug
-
-
+  //3.7.1  drag gamovidzaxo add mde romelime funqciashi
+  ////1.1 -D&D ar mushaobs sanam axal damatebul elements ar davamateb 
   
-  ////1.1 -D&D ar mushaobs sanam axal damatebul elements ar davaD&Deb ;) (snooze)
   
-document.querySelector('.do__container__head__add').addEventListener('click', function(){
+// document.querySelector('.do__container__head__add').addEventListener('click', add());
   
+function add(){
   let name;
   
   name = document.querySelector('.do__container__head__input').value;
@@ -614,13 +615,12 @@ document.querySelector('.do__container__head__add').addEventListener('click', fu
   todo.push({task: newTask, id: id, name: name, priority: priority, description: description});
   
   for(let i = 0; i < todo.length; i++){
-    document.querySelector('.TODO1').appendChild(todo[i].task);
+    todoContainer.appendChild(todo[i].task);
   }
   
   id++;
-  draggables = document.querySelectorAll('.draggable');
   drag();
-})///////////////////////////////////////////////////////////add()
+}///////////////////////////////////////////////////////////add()
 
   function _setLocalStorage(){
     localStorage.setItem(`LCid`, JSON.stringify(id)) 
@@ -628,43 +628,31 @@ document.querySelector('.do__container__head__add').addEventListener('click', fu
     for (let i = 0; i < todo.length; i++) {
       localStorage.setItem(`todoTask${todo[i].id}`, JSON.stringify(todo[i].task.innerHTML)) 
     }
-    // for (let i = 0; i < doing.length; i++) {
-    //   localStorage.setItem(`doingTask${doing[i].id}`, JSON.stringify(doing[i].task.innerHTML)) 
-    // //add is mere aq shemodis zedmetad  
-    // //es ori for zedmeti iyo
-    // }
-
-    // for (let i = 0; i < done.length; i++) {
-    //   localStorage.setItem(`doneTask${done[i].id}`, JSON.stringify(done[i].task.innerHTML)) 
-    // }
-    
     localStorage.setItem(`todo`, JSON.stringify(todo))
     localStorage.setItem('doing', JSON.stringify(doing))
     localStorage.setItem('done', JSON.stringify(done))
   }
   
-  let data1, data2, data3;
   let tasks1 = [];
   let tasks2 = [];
   let tasks3 = [];
+  let data, data2, data3;
 
 
   function getLocalStorage(){
     
-    // console.log(id);
     // id = JSON.parse(localStorage.getItem('LCid'))
     
     data1 = JSON.parse(localStorage.getItem('todo'));
     data2 = JSON.parse(localStorage.getItem('doing'));
     data3 = JSON.parse(localStorage.getItem('done'));
-
+    
     id = JSON.parse(localStorage.getItem('LCid'))
     
     if(data1){
       for(let i = 0; i < data1.length; i++){//data[i].id 
 
         tasks1.push(JSON.parse(localStorage.getItem(`todoTask${data1[i].id}`))) 
-        // console.log(JSON.parse(localStorage.getItem(`todoTask${i}`)))
         
         let n = document.createElement('div');
         n.innerHTML = tasks1[i];
@@ -677,14 +665,13 @@ document.querySelector('.do__container__head__add').addEventListener('click', fu
         todo[i] = data1[i];
         
         todoContainer.appendChild(todo[i].task);
-
+        drag();
       }
     }
     if(data2){
       for(let i = 0; i < data2.length; i++){//data[i].id 
 
         a = localStorage.getItem(`doingTask${data2[i].id}`);
-        // console.log(a);
         tasks2.push(JSON.parse(localStorage.getItem(`doingTask${data2[i].id}`))); 
         // localStorage.getItem(`doingTask${i}`)//data2[i].id xom ara {i} s magivrad
 
@@ -704,15 +691,16 @@ document.querySelector('.do__container__head__add').addEventListener('click', fu
         doing[i] = data2[i]  
         
         doingContainer.appendChild(doing[i].task)
-
+        
+        
       }
+     
     }
     if(data3){
       for(let i = 0; i < data3.length; i++){//data[i].id 
 
         tasks3.push(JSON.parse(localStorage.getItem(`doneTask${data3[i].id}`))) 
         // JSON.parse(localStorage.getItem(`doneTask${i}`))   eseni arafers shveboda xo?
-        // console.log(JSON.parse(localStorage.getItem(`doingTask${data3[i].id}`)))//data2[i].id xom ara {i} s magivrad
 
         let n = document.createElement('div');
         n.innerHTML = tasks3[i];
@@ -728,9 +716,12 @@ document.querySelector('.do__container__head__add').addEventListener('click', fu
         done[i] = data3[i]  
         
         doneContainer.appendChild(done[i].task)
+        drag();
         
       }
     }
+
+    draggables = document.querySelectorAll('.draggable');
   }
 
 
@@ -757,9 +748,6 @@ document.querySelector('.do__container__head__add').addEventListener('click', fu
       }
       id = max + 1;
     }
-    else if(!data1 || created){
-      // console.log('id: ' + id)
-    }
   
   
     if(data2 && !created){
@@ -773,9 +761,6 @@ document.querySelector('.do__container__head__add').addEventListener('click', fu
       }
       id = max + 1;
     }
-    else if(!data2 || created){
-      // console.log('id: ' + id)
-    }
   
     if(data3 && !created){
       let max = 0;
@@ -787,9 +772,6 @@ document.querySelector('.do__container__head__add').addEventListener('click', fu
         }
       }
       id = max + 1;
-    }
-    else if(!data3 || created){
-      // console.log('id: ' + id)
     }
     
   }
