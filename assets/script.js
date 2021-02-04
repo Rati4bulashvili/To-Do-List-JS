@@ -31,8 +31,9 @@
   //3.7  feb 4 11:33 line 507 cannot set property 'value' of null
 
   ////////////////////////////////////PERFECTIONALIZE/////////////////////////////////////////////
-  //1.+ implement functional programming for clean and understandable code
+  //1.++implement functional programming for clean and understandable code
   //2.++removee not needed console.log()s
+  //3.++description bug in done
 
 const containers = document.querySelectorAll('.container1')
 const todoContainer = document.querySelector('.TODO1')
@@ -135,11 +136,11 @@ function changeDescription(e){
       localStorage.setItem(`doing`, JSON.stringify(doing))
     }   
   }
-  for (let i = 0; i < doing.length; i++) {
-    if(doing[i].id == e.target.dataset.id){
-      localStorage.removeItem('doing');
-      doing[i].description = e.target.value;
-      localStorage.setItem(`doing`, JSON.stringify(doing))
+  for (let i = 0; i < done.length; i++) {
+    if(done[i].id == e.target.dataset.id){
+      localStorage.removeItem('done');
+      done[i].description = e.target.value;
+      localStorage.setItem(`done`, JSON.stringify(done))
     }   
   }
 }
@@ -187,48 +188,70 @@ function drag(){
         let id2, temp2;
         draggable.addEventListener('dragend', () => {
 
+          function updateTasks(from, to, LCfrom, LCto, index){
+
+            localStorage.removeItem(LCfrom)
+            localStorage.removeItem(LCto)
+
+            temp = from.splice(index, 1);
+            temp = temp[0];
+            to.push(temp);
+            console.log(from)
+            console.log(to)
+            localStorage.setItem(LCfrom, JSON.stringify(from))
+            localStorage.setItem(LCto, JSON.stringify(to))
+
+            localStorage.setItem(`${LCto}Task${id2}`, temp2)
+            localStorage.removeItem(`${LCfrom}Task${id2}`)
+          }
           todoContainer.ondragend = function(){
+
 
             if(current === 'DONE'){
 
               for (let i = 0; i < done.length; i++) {
                 id2 = done[i].id;
                 temp2 = localStorage.getItem(`doneTask${id2}`); 
+
                 if(id2 == id1){
 
-                  localStorage.removeItem('done')
-                  localStorage.removeItem('todo')
+                  // localStorage.removeItem('done')
+                  // localStorage.removeItem('todo')
 
-                  temp = done.splice(i, 1);
-                  temp = temp[0];
-                  todo.push(temp);
-                  localStorage.setItem('done', JSON.stringify(done))
-                  localStorage.setItem('todo', JSON.stringify(todo))
+                  // temp = done.splice(i, 1);
+                  // temp = temp[0];
+                  // todo.push(temp);
+                  // localStorage.setItem('done', JSON.stringify(done))
+                  // localStorage.setItem('todo', JSON.stringify(todo))
 
-                  localStorage.setItem(`todoTask${id2}`, temp2) //
-                  localStorage.removeItem(`doneTask${id2}`)
+                  // localStorage.setItem(`todoTask${id2}`, temp2)
+                  // localStorage.removeItem(`doneTask${id2}`)
+
+                  updateTasks(done, todo, `done`, `todo`, i);
                 }                
               } 
             }
-
+            
             else if(current === 'DOING'){
 
               for (let i = 0; i < doing.length; i++) {
                 id2 = doing[i].id;
-                temp2 = localStorage.getItem(`doingTask${id2}`); //LC s gareshe?
+                temp2 = localStorage.getItem(`doingTask${id2}`); 
+
                 if(id2 == id1){
-
-                  localStorage.removeItem('doing')
-                  localStorage.removeItem('todo')
-
-                  temp = doing.splice(i, 1);
-                  temp = temp[0];
-                  todo.push(temp);
-                  localStorage.setItem('doing', JSON.stringify(doing))
-                  localStorage.setItem('todo', JSON.stringify(todo))
                   
-                  localStorage.setItem(`todoTask${id2}`, temp2) //
-                  localStorage.removeItem(`doingTask${id2}`)
+                  updateTasks(doing, todo, `doing`, `todo`, i);
+                //   localStorage.removeItem('doing')
+                //   localStorage.removeItem('todo')
+
+                //   temp = doing.splice(i, 1);
+                //   temp = temp[0];
+                //   todo.push(temp);
+                //   localStorage.setItem('doing', JSON.stringify(doing))
+                //   localStorage.setItem('todo', JSON.stringify(todo))
+                  
+                //   localStorage.setItem(`todoTask${id2}`, temp2) 
+                //   localStorage.removeItem(`doingTask${id2}`)
                 }                
               } 
             }
@@ -243,17 +266,20 @@ function drag(){
                 temp2 = localStorage.getItem(`todoTask${id2}`); 
                 if(id2 == id1){
 
-                  localStorage.removeItem('todo')
-                  localStorage.removeItem('doing')
+                  updateTasks(todo, doing, `todo`, `doing`, i);
+                  
 
-                  temp = todo.splice(i, 1);
-                  temp = temp[0];
-                  doing.push(temp);
-                  localStorage.setItem('todo', JSON.stringify(todo))
-                  localStorage.setItem('doing', JSON.stringify(doing))
+                  // localStorage.removeItem('todo')
+                  // localStorage.removeItem('doing')
 
-                  localStorage.setItem(`doingTask${id2}`, temp2) 
-                  localStorage.removeItem(`todoTask${id2}`)
+                  // temp = todo.splice(i, 1);
+                  // temp = temp[0];
+                  // doing.push(temp);
+                  // localStorage.setItem('todo', JSON.stringify(todo))
+                  // localStorage.setItem('doing', JSON.stringify(doing))
+
+                  // localStorage.setItem(`doingTask${id2}`, temp2) 
+                  // localStorage.removeItem(`todoTask${id2}`)
                   
                 }                
               } 
@@ -266,17 +292,19 @@ function drag(){
                 temp2 = localStorage.getItem(`doneTask${id2}`); 
                 if(id2 == id1){
 
-                  localStorage.removeItem('done')
-                  localStorage.removeItem('doing')
+                  updateTasks(done, doing, `done`, `doing`, i);
 
-                  temp = done.splice(i, 1);
-                  temp = temp[0];
-                  doing.push(temp);
-                  localStorage.setItem('done', JSON.stringify(done))
-                  localStorage.setItem('doing', JSON.stringify(doing))
+                  // localStorage.removeItem('done')
+                  // localStorage.removeItem('doing')
+
+                  // temp = done.splice(i, 1);
+                  // temp = temp[0];
+                  // doing.push(temp);
+                  // localStorage.setItem('done', JSON.stringify(done))
+                  // localStorage.setItem('doing', JSON.stringify(doing))
                   
-                  localStorage.setItem(`doingTask${id2}`, temp2)
-                  localStorage.removeItem(`doneTask${id2}`)
+                  // localStorage.setItem(`doingTask${id2}`, temp2)
+                  // localStorage.removeItem(`doneTask${id2}`)
                 }                
               } 
             }
@@ -291,17 +319,19 @@ function drag(){
                 temp2 = localStorage.getItem(`doingTask${id2}`); 
                 if(id2 == id1){
 
-                  localStorage.removeItem('doing')
-                  localStorage.removeItem('done')
+                  updateTasks(doing, done, `doing`, `done`, i);
 
-                  temp = doing.splice(i, 1);
-                  temp = temp[0];
-                  done.push(temp);
-                  localStorage.setItem('doing', JSON.stringify(doing))
-                  localStorage.setItem('done', JSON.stringify(done))
+                  // localStorage.removeItem('doing')
+                  // localStorage.removeItem('done')
+
+                  // temp = doing.splice(i, 1);
+                  // temp = temp[0];
+                  // done.push(temp);
+                  // localStorage.setItem('doing', JSON.stringify(doing))
+                  // localStorage.setItem('done', JSON.stringify(done))
                   
-                  localStorage.setItem(`doneTask${id2}`, temp2)
-                  localStorage.removeItem(`doingTask${id2}`)
+                  // localStorage.setItem(`doneTask${id2}`, temp2)
+                  // localStorage.removeItem(`doingTask${id2}`)
                 }                
               } 
             }
@@ -312,17 +342,19 @@ function drag(){
                 temp2 = localStorage.getItem(`todoTask${id2}`); 
                 if(id2 == id1){
 
-                  localStorage.removeItem('todo')
-                  localStorage.removeItem('done')
+                  updateTasks(todo, done, `todo`, `done`, i);
 
-                  temp = todo.splice(i, 1);
-                  temp = temp[0];
-                  done.push(temp);
-                  localStorage.setItem('todo', JSON.stringify(todo))
-                  localStorage.setItem('done', JSON.stringify(done))
+                  // localStorage.removeItem('todo')
+                  // localStorage.removeItem('done')
+
+                  // temp = todo.splice(i, 1);
+                  // temp = temp[0];
+                  // done.push(temp);
+                  // localStorage.setItem('todo', JSON.stringify(todo))
+                  // localStorage.setItem('done', JSON.stringify(done))
                   
-                  localStorage.setItem(`doneTask${id2}`, temp2)
-                  localStorage.removeItem(`todoTask${id2}`)
+                  // localStorage.setItem(`doneTask${id2}`, temp2)
+                  // localStorage.removeItem(`todoTask${id2}`)
                 }                
               } 
             }
@@ -425,10 +457,10 @@ function sort(){//doingshi da done shi isorteba magram qreba da refreshis mere y
   localStorage.setItem(`doing`, JSON.stringify(doing))
   
 
-  ///awful fix and cheating:
+  // awful fix and cheating:
   // location.reload();
 
-  //real fix:  \_('_')_/
+  // real fix:  \_('_')_/
 }
 
 function add(){
