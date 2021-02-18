@@ -1,40 +1,3 @@
-  //1.++n shi shevinaxo yvela divi
-  //2.++dataebi gadmovitano da todoshi gadmotanis dros taskis magivrad chavwero n
-  //3.++del from storage (delete bug is because of id creating again)
-  //3.1.+move max id to LC
-  //3.2.+use maxid in creating new  
-  //3.3.+problem with tasks1 in LC
-  //4.++shevinaxo dasortili
-  //4.1++gamovachino sort is ricxvi inputshi
-  //4.2++shecvlili priority shevinaxo loc shi
-  //4.3++an tavidan davsorto an ratom ar inaxavs gavarkvio
-  //5.++shevinaxo description changec
-  //6.++shevinaxo name changec
-
-  ///////////new chapter unlocked: THE LAST BUG////////////////////
-
-  //1. shevamowmo ra ar mushaobs STEP BY STEP
-  //2.++ganvakomentaro yvelaferi ertad zemodan qvemot   
-  //2.2++rac mushaobda imis shemowmeba -> mushaobs
-  //3.  gavarkvio ratom ar mushaobs D&D da gamovasworo
-  //3.1++doing shi aris elementebi da LC shic midis magram ar ibechdeba
-  //3.2++todo dan doingshi gadatanili todo dan ar ishleba
-  //3.4++todo dan doingze gavakete
-  //3.5++danarchenebzec gadavitano  TEST COMPLETED
-  //3.5.1  ragac momentshi LCdan gaqra todo, doing, done 
-  //3.6++BUG: roca arsebobs mag: doing0 da iqmneba todo0 urevs(id funqciis shecdomaa)
-  //3.7++mteli funqcionali shevamowmo 
-  
-  /////////////////////////////////////LAST 2 BUGS////////////////////////////////////////////////
-  ////1.1++D&D ar mushaobs sanam axal damatebul elements ar davamateb 
-  //3.7  sorts aqvs bug
-  //3.7  feb 4 11:33 line 507 cannot set property 'value' of null
-
-  ////////////////////////////////////PERFECTIONALIZE/////////////////////////////////////////////
-  //1.++implement functional programming for clean and understandable code
-  //2.++removee not needed console.log()s
-  //3.++description bug in done
-
 const containers = document.querySelectorAll('.container1')
 const todoContainer = document.querySelector('.TODO1')
 const doingContainer= document.querySelector('.DOING1')
@@ -82,7 +45,6 @@ function changeName(e){
       done[i].name = e.target.value;
       localStorage.setItem(`done`, JSON.stringify(done))
 
-      // onChange(done, 'done', done[i].name.value, e.target.value);
     }
   }
 }
@@ -215,18 +177,6 @@ function drag(){
 
                 if(id2 == id1){
 
-                  // localStorage.removeItem('done')
-                  // localStorage.removeItem('todo')
-
-                  // temp = done.splice(i, 1);
-                  // temp = temp[0];
-                  // todo.push(temp);
-                  // localStorage.setItem('done', JSON.stringify(done))
-                  // localStorage.setItem('todo', JSON.stringify(todo))
-
-                  // localStorage.setItem(`todoTask${id2}`, temp2)
-                  // localStorage.removeItem(`doneTask${id2}`)
-
                   updateTasks(done, todo, `done`, `todo`, i);
                 }                
               } 
@@ -241,17 +191,6 @@ function drag(){
                 if(id2 == id1){
                   
                   updateTasks(doing, todo, `doing`, `todo`, i);
-                //   localStorage.removeItem('doing')
-                //   localStorage.removeItem('todo')
-
-                //   temp = doing.splice(i, 1);
-                //   temp = temp[0];
-                //   todo.push(temp);
-                //   localStorage.setItem('doing', JSON.stringify(doing))
-                //   localStorage.setItem('todo', JSON.stringify(todo))
-                  
-                //   localStorage.setItem(`todoTask${id2}`, temp2) 
-                //   localStorage.removeItem(`doingTask${id2}`)
                 }                
               } 
             }
@@ -267,20 +206,6 @@ function drag(){
                 if(id2 == id1){
 
                   updateTasks(todo, doing, `todo`, `doing`, i);
-                  
-
-                  // localStorage.removeItem('todo')
-                  // localStorage.removeItem('doing')
-
-                  // temp = todo.splice(i, 1);
-                  // temp = temp[0];
-                  // doing.push(temp);
-                  // localStorage.setItem('todo', JSON.stringify(todo))
-                  // localStorage.setItem('doing', JSON.stringify(doing))
-
-                  // localStorage.setItem(`doingTask${id2}`, temp2) 
-                  // localStorage.removeItem(`todoTask${id2}`)
-                  
                 }                
               } 
             }
@@ -293,18 +218,6 @@ function drag(){
                 if(id2 == id1){
 
                   updateTasks(done, doing, `done`, `doing`, i);
-
-                  // localStorage.removeItem('done')
-                  // localStorage.removeItem('doing')
-
-                  // temp = done.splice(i, 1);
-                  // temp = temp[0];
-                  // doing.push(temp);
-                  // localStorage.setItem('done', JSON.stringify(done))
-                  // localStorage.setItem('doing', JSON.stringify(doing))
-                  
-                  // localStorage.setItem(`doingTask${id2}`, temp2)
-                  // localStorage.removeItem(`doneTask${id2}`)
                 }                
               } 
             }
@@ -320,18 +233,6 @@ function drag(){
                 if(id2 == id1){
 
                   updateTasks(doing, done, `doing`, `done`, i);
-
-                  // localStorage.removeItem('doing')
-                  // localStorage.removeItem('done')
-
-                  // temp = doing.splice(i, 1);
-                  // temp = temp[0];
-                  // done.push(temp);
-                  // localStorage.setItem('doing', JSON.stringify(doing))
-                  // localStorage.setItem('done', JSON.stringify(done))
-                  
-                  // localStorage.setItem(`doneTask${id2}`, temp2)
-                  // localStorage.removeItem(`doingTask${id2}`)
                 }                
               } 
             }
@@ -343,18 +244,6 @@ function drag(){
                 if(id2 == id1){
 
                   updateTasks(todo, done, `todo`, `done`, i);
-
-                  // localStorage.removeItem('todo')
-                  // localStorage.removeItem('done')
-
-                  // temp = todo.splice(i, 1);
-                  // temp = temp[0];
-                  // done.push(temp);
-                  // localStorage.setItem('todo', JSON.stringify(todo))
-                  // localStorage.setItem('done', JSON.stringify(done))
-                  
-                  // localStorage.setItem(`doneTask${id2}`, temp2)
-                  // localStorage.removeItem(`todoTask${id2}`)
                 }                
               } 
             }
@@ -363,19 +252,6 @@ function drag(){
       })
     })
   })
-  // for (let i = 0; i < todo.length; i++) {
-  //   console.log('todo: ' + i)
-  //   console.log(todo[i])
-  // }
-  // for (let i = 0; i < doing.length; i++) {
-  //   console.log('doing: ' + i)
-  //   console.log(doing[i])
-  // }
-  // for (let i = 0; i < done.length; i++) {
-  //   console.log('done: ' + i)
-  //   console.log(done[i])
-  // }
-
   _setLocalStorage();
 }//drag()
 
@@ -401,7 +277,7 @@ function fillContainer(container, arr){
   }
 }
 
-function del(e){//mushaoooooobss
+function del(e){
   
   remove(todo, 'todo', e.target.dataset.id, todoContainer);
   remove(doing, 'doing', e.target.dataset.id, doingContainer);
@@ -413,7 +289,7 @@ function del(e){//mushaoooooobss
       
 }
 
-function sort(){//doingshi da done shi isorteba magram qreba da refreshis mere yvelaferi mushaobs
+function sort(){//doingshi da done shi isorteba magram qreba da refreshis mere sort mushaobs drag and dropis gamoyenebamde(gadatanili elementebistvis agar mushaobs)
   
   localStorage.removeItem(`todo`, JSON.stringify(todo))
   localStorage.removeItem(`doing`, JSON.stringify(doing))
@@ -497,6 +373,10 @@ function add(){
   
   id++;
   drag();
+
+  console.log(document.querySelector('.do__container__head__input'))
+  document.querySelector('.do__container__head__input').value = '';
+  
 }///////////////////////////////////////////////////////////add()
 
 function _setLocalStorage(){
@@ -591,81 +471,13 @@ function getLocalStorage(){
     
   }
 
-    
-    // let n = document.createElement('div');
-    // n.innerHTML = data;
-    // console.log(data)
-    // // todo[0].task = data;
-    // todoContainer.appendChild(n);
-    
-  // if(data2){
-    //   data2 = JSON.parse(localStorage.getItem('doing'));
-    // }
-    // if(data3){
-      //   data3 = JSON.parse(localStorage.getItem('done'));
-      // }
-      
-      // for (let i = 0; i < 3; i++) {
-        
-        //   let a = localStorage.getItem(`task${i}`); 
-        //   console.log(a);
-        // }
-      
-  // if(data1){
-  //   console.log(data1)  
-  //   for (let i = 0; i < data1.length; i++) {
-  //     todo.push(data1[i]);
-  //   }
-  // }
-  // console.log(todo);
 
-  // for(let i = 0; i < todo.length; i++){
-  //   // document.querySelector('.TODO').appendChild(todo[i].task);
-  // }
 
-  // console.log(todo)
 
 
 
-  // for (let i = 0; i < todo.length; i++) {
-    
-  //     if(todo[i] !== undefined && todo[i+1] !== undefined){
 
-  //     if (todo[i].priority < todo[i+1].priority) {
-  //       // return -1;
-  //       let temp = todo[i];
-  //       todo[i] = todo[i+1];
-  //       todo[i+1] = temp;      
-  //     }
-  //   }
-  // }
-  
-  // for(let i = 0; i < done.length; i++){
-    
-  //   if(done[i] !== undefined && done[i+1] !== undefined){
-      
-  //     if (done[i].priority < done[i+1].priority) {
-  //       console.log('donesort')
-  //       console.log(done);
-  //       // return -1;
-  //       let temp = done[i];
-  //       done[i] = done[i+1];
-  //       done[i+1] = temp;      
-  //     }
-  //   }
-  // }
-  
-  // for(let i = 0; i < doing.length; i++){
-  //   if(doing[i] !== undefined && doing[i+1] !== undefined){
 
-  //     if (doing[i].priority < doing[i+1].priority) {
-  //       // return -1;
-  //       let temp = doing[i];
-  //       doing[i] = doing[i+1];
-  //       doing[i+1] = temp;      
-  //     }
-  //   }
-  // }
 
 
 
@@ -673,191 +485,3 @@ function getLocalStorage(){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-// var show = false;
-// document.querySelector('.extend').addEventListener('click', function(){
-  //   show = true;
-  
-  //   if(show){
-    
-    //   }
-    // })
-    
-    
-    
-    
-    
-
-  ///////////////////////////////////////////////trash///////////////////////////////////
-    // let temp;
-            
-      // ////////////////////////////////////////////////////////////////////////////////
-      // if(current === 'DONE'){
-        
-      //   if(container.classList.contains('TODO')){
-          
-      //     e.preventDefault()
-      //     const draggable = document.querySelector('.dragging')
-      //     container.appendChild(draggable);
-          
-      //     temp = done.splice(todo.indexOf(id1), 1)
-      //     todo.push(temp)
-      //   }
-      //   else if(container.classList.contains('DOING')){
-          
-      //     e.preventDefault()
-      //     const draggable = document.querySelector('.dragging')
-      //     container.appendChild(draggable);
-          
-      //     temp = done.splice(todo.indexOf(id1), 1 )
-      //     // console.log('temp: ' + temp);
-      //     doing.push(temp);
-      //     // console.log('doing: ' + doing);
-      //     //move to doing
-      //   }
-      // }
-      
-      // else if(current === 'DOING'){
-      //   if(container.classList.contains('TODO')){
-          
-      //     e.preventDefault()
-      //     const draggable = document.querySelector('.dragging')
-      //     container.appendChild(draggable);
-      //   }
-      //   else if(container.classList.contains('DONE')){
-          
-      //     e.preventDefault()
-      //     const draggable = document.querySelector('.dragging')
-      //     container.appendChild(draggable);
-      //   }
-      // }
-      
-      // else if(current === 'TODO'){
-      //   // console.log('id1: ' + id1)
-        
-      //   if(container.classList.contains('DOING')){
-          
-      //     e.preventDefault();
-      //     const draggable = document.querySelector('.dragging');
-      //     container.appendChild(draggable);
-      //   }
-        
-      //   else if(container.classList.contains('DONE')){
-          
-      //     e.preventDefault()
-      //     const draggable = document.querySelector('.dragging')
-      //     container.appendChild(draggable);
-      //   }
-      // }
-    
-    
-    
-    
-    
-    
-    
-
-
-
-
-
-
-
-
- // if(data1){
-    //   for(let i = 0; i < data1.length; i++){
-
-    //     tasks1.push(JSON.parse(localStorage.getItem(`todoTask${data1[i].id}`))) 
-        
-    //     let n = document.createElement('div');
-    //     n.innerHTML = tasks1[i];
-
-    //     if(n.querySelector('.name')){
-    //       n.querySelector('.name').value = data1[i].name
-    //       n.querySelector('.do__container__draggable__fix__priority').value = data1[i].priority
-    //       n.querySelector('.do__container__draggable__more__textarea').value = data1[i].description
-    //     }
-
-    //     data1[i].task = n;
-    //     todo[i] = data1[i];
-        
-    //     todoContainer.appendChild(todo[i].task);
-    //   }
-    // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// containers.forEach(container => {
-//   container.addEventListener('dragover', e => {
-//     e.preventDefault()  //changing prevent cursor 
-//     // const afterElement = getDragAfterElement(container, e.clientY)
-//     const draggable = document.querySelector('.dragging')
-//     // if (afterElement == null) {
-//       container.appendChild(draggable)
-//     // } else {
-//     //   container.insertBefore(draggable, afterElement)
-//     // }
-//   })
-// })
-
-// // function getDragAfterElement(container, y) {
-// //   const draggableElements = [...container.querySelectorAll('.draggable:not(.dragging)')]
-
-// //   return draggableElements.reduce((closest, child) => {
-// //     const box = child.getBoundingClientRect()
-// //     const offset = y - box.top - box.height / 2
-// //     if (offset < 0 && offset > closest.offset) {
-// //       return { offset: offset, element: child }
-// //     } else {
-// //       return closest
-// //     }
-// //   }, { offset: Number.NEGATIVE_INFINITY }).element
-// // }
